@@ -1,0 +1,146 @@
+{
+    "theme": {
+        "primary_color": "#4A00E0",
+        "secondary_color": "#8E2DE2",
+        "font_family": "Poppins",
+        "layout_style": "Modern with glassmorphism and gradient backgrounds"
+    },
+    "components": {
+        "navigation": {
+            "type": "navigation",
+            "description": "Sticky navigation bar with glassmorphism effect",
+            "key_elements": [
+                "Logo/Name",
+                "Home link",
+                "About link",
+                "Experience link",
+                "Projects link",
+                "Contact link",
+                "Mobile hamburger menu",
+                "Progress indicator for scroll position"
+            ],
+            "functionality": [
+                "Smooth scroll to sections",
+                "Mobile responsive dropdown",
+                "Active section highlighting",
+                "Transparent to solid background on scroll"
+            ]
+        },
+        "footer": {
+            "type": "footer",
+            "description": "Minimal footer with social links and copyright",
+            "key_elements": [
+                "Social media icons with glow effect",
+                "Copyright text",
+                "Quick links",
+                "Back to top button"
+            ],
+            "functionality": [
+                "Glowing icon hover effects",
+                "Smooth scroll to top",
+                "Social links open in new tab"
+            ]
+        }
+    },
+    "pages": {
+        "index": {
+            "page_description": "Hero section with personal introduction and call-to-action",
+            "key_elements": [
+                "Full-screen gradient background with animation",
+                "Circular headshot placeholder",
+                "Name with animated text effect",
+                "Professional tagline",
+                "CTA buttons (Resume, Contact)",
+                "Floating tech stack icons",
+                "Social media links",
+                "Scroll indicator"
+            ],
+            "functionality": [
+                "Parallax scrolling effect",
+                "Animated background gradient",
+                "Framer Motion animations for elements",
+                "Hover effects on buttons",
+                "Smooth scroll to sections"
+            ],
+            "content_requirements": [
+                "Professional headshot",
+                "Compelling tagline",
+                "Brief introduction",
+                "Downloadable resume PDF",
+                "Social media profiles"
+            ]
+        },
+        "about": {
+            "page_description": "Detailed professional background and skills overview",
+            "key_elements": [
+                "Bio section with animated typing effect",
+                "Skill categories with progress bars",
+                "Technology stack icons grid",
+                "Professional highlights",
+                "LinkedIn and GitHub integration"
+            ],
+            "functionality": [
+                "Animated skill progress bars",
+                "Hover tooltips for skills",
+                "Filtered skill view by category",
+                "Social profile links"
+            ],
+            "content_requirements": [
+                "Professional biography",
+                "Skill categories and proficiency levels",
+                "Professional achievements",
+                "Educational background",
+                "Certifications"
+            ]
+        },
+        "projects": {
+            "page_description": "Showcase of professional and personal projects",
+            "key_elements": [
+                "Masonry grid layout",
+                "Project cards with glassmorphism",
+                "Project images and logos",
+                "Technology tags",
+                "GitHub and live demo links"
+            ],
+            "functionality": [
+                "Filter projects by category",
+                "Hover zoom effect on cards",
+                "Modal for project details",
+                "Animated card reveal on scroll",
+                "Live project preview"
+            ],
+            "content_requirements": [
+                "Project thumbnails",
+                "Project descriptions",
+                "Technology stack used",
+                "Project outcomes",
+                "GitHub repositories",
+                "Live demo links"
+            ]
+        },
+        "contact": {
+            "page_description": "Contact form and professional contact information",
+            "key_elements": [
+                "Animated contact form",
+                "Social media links",
+                "Professional email",
+                "Location information",
+                "Contact success message"
+            ],
+            "functionality": [
+                "Form validation",
+                "Email submission",
+                "Success/error animations",
+                "Social media integration",
+                "Copy email to clipboard"
+            ],
+            "content_requirements": [
+                "Contact form fields",
+                "Professional email address",
+                "Social media profiles",
+                "Location details",
+                "Response time expectation"
+            ]
+        }
+    }
+}

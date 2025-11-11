@@ -1,0 +1,145 @@
+{
+    "theme": {
+        "primary_color": "#2C3E50",
+        "secondary_color": "#3498DB",
+        "font_family": "Roboto",
+        "layout_style": "modern and professional"
+    },
+    "components": {
+        "navigation": {
+            "type": "navigation",
+            "description": "Main navigation bar fixed at top",
+            "key_elements": [
+                "Logo",
+                "Home",
+                "Services",
+                "About",
+                "Contact",
+                "Book Consultation button"
+            ],
+            "functionality": [
+                "Sticky navigation",
+                "Mobile responsive hamburger menu",
+                "Active link highlighting"
+            ]
+        },
+        "footer": {
+            "type": "footer",
+            "description": "Site-wide footer with important links and contact info",
+            "key_elements": [
+                "Company logo",
+                "Quick links section",
+                "Contact information",
+                "Social media links",
+                "Newsletter signup",
+                "Copyright notice"
+            ],
+            "functionality": [
+                "Newsletter subscription form",
+                "Social media integration",
+                "Quick contact form"
+            ]
+        }
+    },
+    "pages": {
+        "index": {
+            "page_description": "Homepage showcasing consultancy services and value proposition",
+            "key_elements": [
+                "Hero section with compelling headline",
+                "Services overview grid",
+                "Client testimonials carousel",
+                "Statistics/achievements section",
+                "Featured case studies",
+                "Call-to-action section"
+            ],
+            "functionality": [
+                "Animated statistics counter",
+                "Testimonial slider",
+                "Service category filtering",
+                "Quick consultation booking form"
+            ],
+            "content_requirements": [
+                "Business strategy consulting description",
+                "Financial advisory services overview",
+                "IT consulting services details",
+                "Human Resources consulting information",
+                "Marketing strategy consulting overview",
+                "Client success stories",
+                "Company statistics and achievements"
+            ]
+        },
+        "services": {
+            "page_description": "Detailed information about all consulting services",
+            "key_elements": [
+                "Service categories grid",
+                "Detailed service descriptions",
+                "Pricing tables",
+                "Service comparison chart",
+                "Industry expertise sections"
+            ],
+            "functionality": [
+                "Service filter options",
+                "Interactive pricing calculator",
+                "Service inquiry form",
+                "Downloadable service brochures"
+            ],
+            "content_requirements": [
+                "Business Strategy Consulting section",
+                "Financial Advisory Services section",
+                "IT Consulting section",
+                "HR Consulting section",
+                "Marketing Strategy section",
+                "Service benefits and features",
+                "Industry-specific solutions"
+            ]
+        },
+        "about": {
+            "page_description": "Company information and team introduction",
+            "key_elements": [
+                "Company history timeline",
+                "Mission and vision statements",
+                "Team member profiles",
+                "Company values section",
+                "Partner logos section"
+            ],
+            "functionality": [
+                "Interactive timeline",
+                "Team member filter by expertise",
+                "Partner logo carousel",
+                "Awards showcase"
+            ],
+            "content_requirements": [
+                "Company background story",
+                "Team member biographies",
+                "Professional certifications",
+                "Company achievements",
+                "Corporate culture information"
+            ]
+        },
+        "contact": {
+            "page_description": "Contact information and consultation booking",
+            "key_elements": [
+                "Contact form",
+                "Office locations map",
+                "Contact information display",
+                "Consultation booking calendar",
+                "FAQ section"
+            ],
+            "functionality": [
+                "Interactive contact form",
+                "Google Maps integration",
+                "Real-time consultation slot booking",
+                "Auto-response system",
+                "Live chat widget"
+            ],
+            "content_requirements": [
+                "Office addresses",
+                "Contact numbers",
+                "Email addresses",
+                "Business hours",
+                "Emergency contact information",
+                "Frequently asked questions"
+            ]
+        }
+    }
+}

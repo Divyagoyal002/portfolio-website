@@ -1,0 +1,10 @@
+{
+  "name": "gym-app-e6aa",
+  "public": true,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ]
+}
