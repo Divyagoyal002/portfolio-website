@@ -10,23 +10,30 @@ interface NavItem {
   href: string;
 }
 
-const Navigation: React.FC = () => {
+interface NavigationProps {
+  items?: NavItem[]; // ✅ make prop optional to allow both internal + external use
+}
+
+const Navigation: React.FC<NavigationProps> = ({ items }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
 
-  const navItems: NavItem[] = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Experience", href: "/experience" },
-    { label: "Projects", href: "/projects" },
-    { label: "Contact", href: "/contact" },
-  ];
+  // ✅ use items from props if provided, else default to local navItems
+  const navItems: NavItem[] =
+    items ?? [
+      { label: "Home", href: "/" },
+      { label: "About", href: "/about" },
+      { label: "Experience", href: "/experience" },
+      { label: "Projects", href: "/projects" },
+      { label: "Contact", href: "/contact" },
+    ];
 
   // Scroll progress indicator
   useEffect(() => {
     const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const totalScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
       const progress = (window.scrollY / totalScroll) * 100;
       setScrollProgress(progress);
     };
