@@ -1,10 +1,20 @@
 'use client';
 import React from "react";
-import { FaUserCircle, FaGithub, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
+import {
+  FaUserCircle,
+  FaGithub,
+  FaLinkedin,
+  FaTwitter,
+  FaInstagram,
+} from "react-icons/fa";
 import { IoIosArrowUp } from "react-icons/io";
 import { motion } from "framer-motion";
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  className?: string; // ✅ allow optional className from parent
+}
+
+const Footer: React.FC<FooterProps> = ({ className = "" }) => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const socialLinks = [
@@ -12,12 +22,12 @@ const Footer: React.FC = () => {
     { icon: FaLinkedin, href: "https://linkedin.com/in/divyagoyalds", label: "LinkedIn" },
     { icon: FaTwitter, href: "https://x.com/divyagoyalbg", label: "Twitter / X" },
     { icon: FaInstagram, href: "https://instagram.com/heyits_divyana", label: "Instagram" },
-    { icon: FaUserCircle, href: "https://topmate.io/divya_goyal10", label: "Topmate" }
+    { icon: FaUserCircle, href: "https://topmate.io/divya_goyal10", label: "Topmate" },
   ];
 
   return (
     <footer
-      className="bg-gradient-to-r from-[#F5F5F5] to-[#A7C7E7] py-8 text-gray-800 select-none"
+      className={`bg-gradient-to-r from-[#F5F5F5] to-[#A7C7E7] py-8 text-gray-800 select-none ${className}`}
       role="contentinfo"
     >
       <div className="max-w-6xl mx-auto px-4">
