@@ -1,65 +1,69 @@
 'use client';
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-interface SocialLink {
-  name: string;
-  url: string;
-}
-
-interface TechStack {
-  name: string;
-  icon: string;
-}
-
-const socialLinks: SocialLink[] = [
+const socialLinks = [
   { name: "GitHub", url: "https://github.com/divyagoyal002" },
   { name: "LinkedIn", url: "https://linkedin.com/in/divyagoyalds" },
-  { name: "Twitter", url: "https://x.com/divyagoyalbg" }
-];
-
-const techStack: TechStack[] = [
-  { name: "Python", icon: "/python-icon.svg" },
-  { name: "R", icon: "/R-icon.svg" },
-  { name: "Golang", icon: "/Golang-icon.svg" }
+  { name: "Twitter / X", url: "https://x.com/divyagoyalbg" }
 ];
 
 export default function Hero() {
   return (
-    <section id="element_1" className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-[#F5F5F5] to-[#A7C7E7] font-['Poppins']">
-      <div id="element_2" className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
-      
-      <div id="element_3" className="container mx-auto px-4 py-16 relative z-10">
-        <div id="element_4" className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          <div id="element_5" className="flex-1 text-gray-900">
-            <h1 id="element_6" className="text-4xl lg:text-6xl font-bold mb-4 animate-fade-in text-gray-900">
-              Hi, I'm Divya Goyal
+    <section
+      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#F5F5F5] to-[#A7C7E7] font-['Poppins'] overflow-hidden"
+      role="banner"
+    >
+      {/* Subtle grid overlay */}
+      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5 pointer-events-none" />
+
+      <div className="container mx-auto px-6 py-20 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          
+          {/* Left: Text Content */}
+          <div className="flex-1 text-gray-900 text-center lg:text-left">
+            <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-gray-900 leading-tight">
+              Hi, I'm <span className="text-[#F28C8C]">Divya Goyal</span>
             </h1>
-            <p id="element_7" className="text-xl lg:text-2xl mb-8 text-gray-800">
-              An AI/ML Engineer specialisation with LLM's
+
+            <p className="text-xl lg:text-2xl mb-6 text-gray-800">
+              AI/ML Engineer specializing in LLMs
             </p>
-            <p id="element_8" className="text-lg mb-12 text-gray-700 max-w-2xl">
-              I train models and chatbots
+
+            <p className="text-lg mb-10 text-gray-700 max-w-xl mx-auto lg:mx-0">
+              I design, train, and deploy intelligent models & chatbots that make technology more human.
             </p>
-            
-            <div id="element_9" className="flex gap-6 mb-12">
-              <Link href="https://drive.google.com/file/d/1lXxvJTMg7PL2cYJe-is9tEx-_pLdecyF/view?usp=drive_link"  className="px-8 py-3 border-2 border-[#F28C8C] text-[#F28C8C] rounded-full font-semibold hover:bg-[#F28C8C] hover:text-white transition-all">
+
+            {/* Buttons */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 mb-10">
+              <Link
+                href="https://drive.google.com/file/d/1lXxvJTMg7PL2cYJe-is9tEx-_pLdecyF/view?usp=drive_link"
+                target="_blank"
+                className="px-8 py-3 border-2 border-[#F28C8C] text-[#F28C8C] rounded-full font-semibold hover:bg-[#F28C8C] hover:text-white transition-all shadow-sm hover:shadow-md"
+              >
                 Download Resume
               </Link>
-              <Link href="https://topmate.io/divya_goyal10" className="px-8 py-3 border-2 border-[#F28C8C] text-[#F28C8C] rounded-full font-semibold hover:bg-[#F28C8C] hover:text-white transition-all">
+              <Link
+                href="https://topmate.io/divya_goyal10"
+                target="_blank"
+                className="px-8 py-3 border-2 border-[#F28C8C] text-[#F28C8C] rounded-full font-semibold hover:bg-[#F28C8C] hover:text-white transition-all shadow-sm hover:shadow-md"
+              >
                 DM a Query
               </Link>
             </div>
 
-            <div id="element_10" className="flex gap-4">
+            {/* Social Links */}
+            <div className="flex justify-center lg:justify-start gap-6 text-gray-800">
               {socialLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.url}
-                  className="text-gray-800 hover:text-[#F28C8C] transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={link.name}
+                  className="hover:text-[#F28C8C] transition-colors font-medium"
                 >
                   {link.name}
                 </Link>
@@ -67,36 +71,44 @@ export default function Hero() {
             </div>
           </div>
 
-          <div id="element_11" className="relative">
-            <div id="element_12" className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-[#F28C8C]">
+          {/* Right: Profile Image */}
+          <div className="relative flex-shrink-0">
+            <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-[#F28C8C] shadow-lg hover:shadow-xl transition-shadow">
               <Image
                 src="/profilepic.jpg"
-                alt="Divya Goyal"
+                alt="Divya Goyal profile photo"
                 width={320}
                 height={320}
-                style={{ objectFit: "cover" }}
                 priority
+                style={{ objectFit: "cover" }}
               />
             </div>
           </div>
         </div>
-
-        <div id="element_13" className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg id="element_14"
+        {/* Scroll Indicator (takes you to /about page) */}
+        <div 
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+        aria-label="Scroll down">
+        
+        <Link
+          href="/about"
+        >
+          <svg
             className="w-6 h-6 text-[#F28C8C]"
             fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="2"
             viewBox="0 0 24 24"
-            stroke="currentColor"
           >
-            <path id="element_15" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
+        </Link>
         </div>
       </div>
-
-      <div id="element_16" className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#A7C7E7] to-transparent" />
+      {/* Bottom gradient overlay */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#A7C7E7] to-transparent" />
     </section>
   );
 }

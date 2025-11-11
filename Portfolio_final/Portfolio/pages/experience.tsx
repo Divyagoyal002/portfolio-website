@@ -1,12 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 import styled from 'styled-components';
 
 const ExperiencePage = () => {
-  const [activeTab, setActiveTab] = useState('work');
+  const [activeTab, setActiveTab] = useState<'work' | 'education'>('work');
 
   const experiences = {
     work: [
@@ -14,17 +14,38 @@ const ExperiencePage = () => {
         title: 'AI/ML Intern',
         company: 'Linkites InfoTech.',
         duration: "February'2025 - July'2025",
-        description: 'Built CNN, LSTM, and FaceNet models for computer vision and forecasting using PyTorch. Developed GenAI tools with LLM APIs, RAG pipelines, and CrewAI agents. Created OneCode, a prompt-driven code generator for React + Node.js apps. Contributed to oneAudit, an AI assistant delivering domain-specific audit insights.',
-        skills : ['Python', 'PyTorch', 'CNN', 'LSTM', 'FaceNet', 'React', 'Node.js', 'AWS', 'LLMs', 'RAG', 'Generative AI', 'Prompt Engineering']
-
+        description:
+          'Built CNN, LSTM, and FaceNet models for computer vision and forecasting using PyTorch. Developed GenAI tools with LLM APIs, RAG pipelines, and CrewAI agents. Created OneCode, a prompt-driven code generator for React + Node.js apps. Contributed to oneAudit, an AI assistant delivering domain-specific audit insights.',
+        skills: [
+          'Python',
+          'PyTorch',
+          'CNN',
+          'LSTM',
+          'FaceNet',
+          'React',
+          'Node.js',
+          'AWS',
+          'LLMs',
+          'RAG',
+          'Generative AI',
+          'Prompt Engineering',
+        ],
       },
       {
         title: 'Data Analyst and Marketing Research Intern',
         company: 'Synergy Ventures',
         duration: "Sep'2023 - Nov'2023",
-        description: 'Data Analyst & Marketing Research Intern at Synergy Ventures (Sep–Oct 2023, Indore, India). Boosted conversion rates by 15% and revenue by 10% through data-driven marketing strategies and pricing recommendations. Conducted market research with Python, NumPy, and Pandas to extract actionable insights that informed business decisions and collaborated with sales and marketing teams to implement recommendations.',
-        skills: ['Data Analysis', 'Market Research', 'Python', 'NumPy', 'Pandas', 'Data-Driven Marketing', 'Pricing Strategy', 'Business Insights', 'Conversion Optimization']
-      }
+        description:
+          'Boosted conversion rates by 15% and revenue by 10% through data-driven marketing strategies and pricing recommendations. Conducted market research using Python, NumPy, and Pandas to extract insights that informed business decisions.',
+        skills: [
+          'Data Analysis',
+          'Market Research',
+          'Python',
+          'NumPy',
+          'Pandas',
+          'Business Insights',
+        ],
+      },
     ],
     education: [
       {
@@ -32,102 +53,97 @@ const ExperiencePage = () => {
         institution: 'School of Data Science and Forecasting , DAVV',
         duration: '2021 - 2026',
         description: 'Specialized in Artificial Intelligence and Data Science',
-        achievements: ['9.1 CGPA','Placement Coordinator']
-      }
-    ]
+        achievements: ['9.1 CGPA', 'Placement Coordinator'],
+      },
+    ],
   };
 
   return (
     <Container>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Title>Experience</Title>
-        
+
         <TabContainer>
-          <Tab 
-            active={activeTab === 'work'} 
-            onClick={() => setActiveTab('work')}
-          >
+          <Tab active={activeTab === 'work'} onClick={() => setActiveTab('work')}>
             <FaBriefcase /> Work
           </Tab>
-          <Tab 
-            active={activeTab === 'education'} 
-            onClick={() => setActiveTab('education')}
-          >
+          <Tab active={activeTab === 'education'} onClick={() => setActiveTab('education')}>
             <FaGraduationCap /> Education
           </Tab>
         </TabContainer>
 
         <TimelineContainer>
-          {activeTab === 'work' ? (
-            experiences.work.map((exp, index) => (
-              <TimelineCard
-                key={index}
-                as={motion.div}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.2 }}
-              >
-                <TimelineDot />
-                <CardContent>
-                  <h3>{exp.title}</h3>
-                  <h4>{exp.company}</h4>
-                  <Duration>{exp.duration}</Duration>
-                  <Description>{exp.description}</Description>
-                  <SkillsContainer>
-                    {exp.skills.map((skill, i) => (
-                      <Skill key={i}>{skill}</Skill>
-                    ))}
-                  </SkillsContainer>
-                </CardContent>
-              </TimelineCard>
-            ))
-          ) : (
-            experiences.education.map((edu, index) => (
-              <TimelineCard
-                key={index}
-                as={motion.div}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.2 }}
-              >
-                <TimelineDot />
-                <CardContent>
-                  <h3>{edu.title}</h3>
-                  <h4>{edu.institution}</h4>
-                  <Duration>{edu.duration}</Duration>
-                  <Description>{edu.description}</Description>
-                  <AchievementsList>
-                    {edu.achievements.map((achievement, i) => (
-                      <Achievement key={i}>{achievement}</Achievement>
-                    ))}
-                  </AchievementsList>
-                </CardContent>
-              </TimelineCard>
-            ))
-          )}
+          <AnimatePresence mode="wait">
+            {activeTab === 'work'
+              ? experiences.work.map((exp, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <TimelineCard>
+                      <TimelineDot />
+                      <CardContent>
+                        <h3>{exp.title}</h3>
+                        <h4>{exp.company}</h4>
+                        <Duration>{exp.duration}</Duration>
+                        <Description>{exp.description}</Description>
+                        <SkillsContainer>
+                          {exp.skills.map((skill, i) => (
+                            <Skill key={i}>{skill}</Skill>
+                          ))}
+                        </SkillsContainer>
+                      </CardContent>
+                    </TimelineCard>
+                  </motion.div>
+                ))
+              : experiences.education.map((edu, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <TimelineCard>
+                      <TimelineDot />
+                      <CardContent>
+                        <h3>{edu.title}</h3>
+                        <h4>{edu.institution}</h4>
+                        <Duration>{edu.duration}</Duration>
+                        <Description>{edu.description}</Description>
+                        <AchievementsList>
+                          {edu.achievements.map((achievement, i) => (
+                            <Achievement key={i}>{achievement}</Achievement>
+                          ))}
+                        </AchievementsList>
+                      </CardContent>
+                    </TimelineCard>
+                  </motion.div>
+                ))}
+          </AnimatePresence>
         </TimelineContainer>
       </motion.div>
     </Container>
   );
 };
 
+// ---------- Styled Components ----------
+
 const Container = styled.div`
   min-height: 100vh;
   padding: 2rem;
-  background: #F5F5F5;
-  font-family: 'Poppins', sans-serif;
-  color: #333333;
+  background: var(--primary);
+  font-family: var(--font-primary);
+  color: var(--foreground);
 `;
 
 const Title = styled.h1`
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: #333333;
 `;
 
 const TabContainer = styled.div`
@@ -140,21 +156,19 @@ const TabContainer = styled.div`
 const Tab = styled.button<{ active: boolean }>`
   padding: 0.8rem 1.5rem;
   border: none;
-  border-radius: 8px;
-  background: ${props => props.active ? 
-    '#A7C7E7' : 
-    '#F5F5F5'
-  };
-  color: ${props => props.active ? '#333333' : '#666666'};
+  border-radius: var(--border-radius);
+  background: ${(props) => (props.active ? 'var(--secondary)' : 'var(--background)')};
+  color: ${(props) => (props.active ? 'var(--foreground)' : '#666')};
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: var(--transition);
+  box-shadow: var(--box-shadow);
 
   &:hover {
-    background: ${props => props.active ? '#A7C7E7' : '#e0e0e0'};
+    background: var(--secondary);
+    transform: translateY(-2px);
   }
 `;
 
@@ -162,7 +176,7 @@ const TimelineContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -170,7 +184,7 @@ const TimelineContainer = styled.div`
     top: 0;
     height: 100%;
     width: 2px;
-    background: #A7C7E7;
+    background: var(--secondary);
   }
 `;
 
@@ -179,13 +193,13 @@ const TimelineCard = styled.div`
   margin-left: 20px;
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: #ffffff;
+  background: var(--background);
   border-radius: 12px;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
 
   &:hover {
-    transform: translateX(10px);
+    transform: translateX(8px);
   }
 `;
 
@@ -196,33 +210,31 @@ const TimelineDot = styled.div`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #F28C8C;
-  border: 2px solid #ffffff;
+  background: var(--accent-primary);
+  border: 2px solid var(--background);
 `;
 
 const CardContent = styled.div`
   h3 {
     margin: 0 0 0.5rem 0;
     font-size: 1.2rem;
-    color: #333333;
   }
 
   h4 {
     margin: 0 0 0.5rem 0;
-    color: #666666;
+    color: #666;
   }
 `;
 
 const Duration = styled.div`
   font-size: 0.9rem;
-  color: #666666;
+  color: #666;
   margin-bottom: 1rem;
 `;
 
 const Description = styled.p`
   margin-bottom: 1rem;
   line-height: 1.6;
-  color: #333333;
 `;
 
 const SkillsContainer = styled.div`
@@ -233,10 +245,10 @@ const SkillsContainer = styled.div`
 
 const Skill = styled.span`
   padding: 0.3rem 0.8rem;
-  background: #A7C7E7;
+  background: var(--secondary);
   border-radius: 20px;
   font-size: 0.9rem;
-  color: #333333;
+  color: var(--foreground);
 `;
 
 const AchievementsList = styled.div`
@@ -247,10 +259,10 @@ const AchievementsList = styled.div`
 
 const Achievement = styled.div`
   padding: 0.3rem 0.8rem;
-  background: #A7C7E7;
+  background: var(--secondary);
   border-radius: 20px;
   font-size: 0.9rem;
-  color: #333333;
+  color: var(--foreground);
 `;
 
 export default ExperiencePage;
