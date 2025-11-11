@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface Skill {
   name: string;
@@ -31,7 +32,7 @@ const About = () => {
     { name: "EDA", proficiency: 80, category: "Business Intelligence & Analytics" },
     { name: "Statistics", proficiency: 85, category: "Business Intelligence & Analytics" },
     { name: "Microsoft Excel", proficiency: 75, category: "Business Intelligence & Analytics" },
-    { name: "Strategic Decision-Making.", proficiency: 80, category: "Soft Skills" },
+    { name: "Strategic Decision-Making", proficiency: 80, category: "Soft Skills" },
     { name: "Leadership", proficiency: 90, category: "Soft Skills" },
     { name: "Communication", proficiency: 90, category: "Soft Skills" }
   ];
@@ -39,11 +40,13 @@ const About = () => {
   const achievements: Achievement[] = [
     {
       title: "Symposium Coordinator",
-      description: "iBCD 2024 - School of Data Science and Forecasting - Content Development, Data Collection and Management, Team Coordination, Logistics Management",
+      description:
+        "iBCD 2024 - School of Data Science and Forecasting - Content Development, Data Collection and Management, Team Coordination, Logistics Management",
     },
     {
       title: "Techhunterssss",
-      description: "• Organized 36-Hour Pan-India Hackathon. Oversaw cross-functional teams including logistics, marketing, speaker management, and tech support.Enabled strategic partnerships and sponsor outreach.",
+      description:
+        "Organized 36-Hour Pan-India Hackathon. Oversaw cross-functional teams including logistics, marketing, speaker management, and tech support. Enabled strategic partnerships and sponsor outreach.",
     },
   ];
 
@@ -57,89 +60,87 @@ const About = () => {
         clearInterval(intervalId);
       }
     }, 100);
-
     return () => clearInterval(intervalId);
   }, []);
 
-  const filteredSkills = skillFilter === "all" 
-    ? skills 
-    : skills.filter(skill => skill.category === skillFilter);
+  const filteredSkills =
+    skillFilter === "all" ? skills : skills.filter(skill => skill.category === skillFilter);
 
-return (
-  <div
-    id="element_1"
-    className="min-h-screen bg-gradient-to-br from-[#F5F5F5] to-[#A7C7E7] text-gray-900 font-[Poppins] px-4 py-16"
-  >
-    <div id="element_2" className="max-w-6xl mx-auto">
-      <div
-        id="element_3"
-        className="flex flex-col md:flex-row items-center justify-center text-center md:text-left gap-6"
-      >
-        <div id="element_4" className="space-y-6 max-w-xl">
-          <h1
-            id="element_5"
-            className="text-4xl md:text-5xl font-bold text-gray-900"
-          >
-            About Me
-          </h1>
-          <div id="element_6" className="h-16">
-            <p
-              id="element_7"
-              className="text-xl md:text-2xl text-gray-800"
-            >
-              {typedText}
-            </p>
-          </div>
-          <div id="element_8" className="prose">
-            <p id="element_9" className="text-lg text-gray-800">
-              I design and deliver AI-powered solutions that solve real-world problems from deep learning models for computer vision to GenAI tools powered by LLMs and RAG pipelines. With a strong foundation in Python, ML, and data analytics, I build products that are not just functional, but scalable, intuitive, and impactful. My approach blends technical precision with business insight, ensuring every solution drives measurable value.
-            </p>
-          </div>
-          <div id="element_10" className="flex space-x-4">
-            <Link
-              href="https://linkedin.com/in/divyagoyalds"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#A7C7E7] text-gray-900 hover:bg-[#96b6d6] rounded-lg px-6 py-3 transition-all"
-            >
-              LinkedIn
-            </Link>
-            <Link
-              href="https://github.com/divyagoyal002"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#A7C7E7] text-gray-900 hover:bg-[#96b6d6] rounded-lg px-6 py-3 transition-all"
-            >
-              GitHub
-            </Link>
-          </div>
-        </div>
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-[#F5F5F5] to-[#A7C7E7] text-gray-900 font-[Poppins] px-4 py-16">
+      <div className="max-w-6xl mx-auto space-y-24">
 
-        {/* Profile Image */}
-       <div id="element_11" className="flex justify-center md:justify-end">
-     <Image
-      src="/profilepic.jpg"
-      alt="Professional headshot"
-      width={210}
-      height={210}
-      className="w-[180px] h-[180px] rounded-full shadow-xl object-cover object-top"
-    />
-  </div>
-
-      </div>
-
-      <div id="element_12" className="mt-20">
-        <h2
-          id="element_13"
-          className="text-3xl font-bold mb-8 text-gray-900"
+        {/* --- About Section --- */}
+        <motion.section
+          id="about"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20"
         >
-          Skills & Expertise
-        </h2>
-        <div id="element_14" className="mb-6">
-          <div id="element_15" className="flex space-x-4 mb-6">
-            {["all", "Programmming", "Artificial Intelligence","Business Intelligence & Analytics","Soft Skills"].map((category) => (
+          {/* Text Section */}
+          <div className="max-w-xl text-center md:text-left space-y-6">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-gray-900">
+              About Me
+            </h1>
+
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-800">{typedText}</p>
+
+            <p className="text-gray-800 text-base sm:text-lg leading-relaxed text-justify">
+              I design and deliver AI-powered solutions that solve real-world problems — from deep learning models for computer vision to GenAI tools powered by LLMs and RAG pipelines. 
+              With a strong foundation in Python, ML, and data analytics, I build products that are not just functional, but scalable, intuitive, and impactful. 
+              My approach blends technical precision with business insight, ensuring every solution drives measurable value.
+            </p>
+
+            <div className="flex flex-wrap justify-center md:justify-start gap-3">
+              <Link
+                href="https://linkedin.com/in/divyagoyalds"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#A7C7E7] hover:bg-[#96b6d6] text-gray-900 px-6 py-3 rounded-lg transition"
+              >
+                LinkedIn
+              </Link>
+              <Link
+                href="https://github.com/divyagoyal002"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#A7C7E7] hover:bg-[#96b6d6] text-gray-900 px-6 py-3 rounded-lg transition"
+              >
+                GitHub
+              </Link>
+            </div>
+          </div>
+
+          {/* Profile Image */}
+          <div className="flex-shrink-0">
+            <Image
+              src="/profilepic.jpg"
+              alt="Divya Goyal profile picture"
+              width={220}
+              height={220}
+              priority
+              className="w-40 sm:w-48 md:w-56 h-40 sm:h-48 md:h-56 rounded-full shadow-xl object-cover object-top"
+            />
+          </div>
+        </motion.section>
+
+        {/* --- Skills Section --- */}
+        <motion.section
+          id="skills"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl font-bold mb-8 text-gray-900 text-center md:text-left">
+            Skills & Expertise
+          </h2>
+
+          <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-6">
+            {["all", "Programmming", "Artificial Intelligence", "Business Intelligence & Analytics", "Soft Skills"].map(category => (
               <button
-                id="element_16"
                 key={category}
                 onClick={() => setSkillFilter(category)}
                 className={`px-4 py-2 rounded-lg transition-all ${
@@ -147,38 +148,22 @@ return (
                     ? "bg-[#F28C8C] text-white"
                     : "bg-[#A7C7E7] hover:bg-[#96b6d6] text-gray-900"
                 }`}
+                aria-label={`Filter skills by ${category}`}
               >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
+                {category}
               </button>
             ))}
           </div>
-          <div
-            id="element_17"
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          >
-            {filteredSkills.map((skill) => (
-              <div
-                id="element_18"
-                key={skill.name}
-                className="bg-white shadow-lg rounded-lg p-4"
-              >
-                <div
-                  id="element_19"
-                  className="flex justify-between mb-2"
-                >
-                  <span id="element_20" className="text-gray-900">
-                    {skill.name}
-                  </span>
-                  <span id="element_21" className="text-gray-700">
-                    {skill.proficiency}%
-                  </span>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredSkills.map(skill => (
+              <div key={skill.name} className="bg-white shadow-lg rounded-lg p-4">
+                <div className="flex justify-between mb-2">
+                  <span className="text-gray-900">{skill.name}</span>
+                  <span className="text-gray-700">{skill.proficiency}%</span>
                 </div>
-                <div
-                  id="element_22"
-                  className="h-2 bg-[#A7C7E7] rounded-full overflow-hidden"
-                >
+                <div className="h-2 bg-[#A7C7E7] rounded-full overflow-hidden">
                   <div
-                    id="element_23"
                     className="h-full bg-[#F28C8C] transition-all duration-1000"
                     style={{ width: `${skill.proficiency}%` }}
                   />
@@ -186,42 +171,35 @@ return (
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        </motion.section>
 
-      {/* Achievements Section */}
-      <div id="element_24" className="mt-20">
-        <h2
-          id="element_25"
-          className="text-3xl font-bold mb-8 text-gray-900"
+        {/* --- Achievements Section --- */}
+        <motion.section
+          id="achievements"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
         >
-          Achievements
-        </h2>
-        <div
-          id="element_26"
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          {achievements.map((achievement) => (
-            <div
-              id="element_27"
-              key={achievement.title}
-              className="bg-white shadow-lg rounded-lg p-6 hover:bg-[#F5F5F5] transition-all"
-            >
-              <h3
-                id="element_28"
-                className="text-xl font-bold mb-2 text-gray-900"
+          <h2 className="text-3xl font-bold mb-8 text-gray-900 text-center md:text-left">
+            Achievements
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {achievements.map(achievement => (
+              <article
+                key={achievement.title}
+                className="bg-white shadow-lg rounded-lg p-6 hover:bg-[#F5F5F5] transition-all"
               >
-                {achievement.title}
-              </h3>
-              <p id="element_29" className="text-gray-800">
-                {achievement.description}
-              </p>
-            </div>
-          ))}
-        </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900">{achievement.title}</h3>
+                <p className="text-gray-800">{achievement.description}</p>
+              </article>
+            ))}
+          </div>
+        </motion.section>
+
       </div>
-    </div>
-  </div>
-);
-}
+    </main>
+  );
+};
+
 export default About;

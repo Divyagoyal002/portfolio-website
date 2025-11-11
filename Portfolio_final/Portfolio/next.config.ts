@@ -1,16 +1,37 @@
+import type { NextConfig } from "next";
 
-        import type { NextConfig } from "next";
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
 
-        const nextConfig: NextConfig = {
-           images: {
-           dangerouslyAllowSVG: true,
-           domains: ['https://placehold.co/','placehold.co', 'https://unsplash.com/','https://images.unsplash.com/','images.unsplash.com'],
-           },
-          eslint: {
-            ignoreDuringBuilds: true,
-          },
+  images: {
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
+  },
 
-         };
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 
-          export default nextConfig;
-            
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+
+  compiler: {
+    styledComponents: true,
+  },
+};
+
+export default nextConfig;
