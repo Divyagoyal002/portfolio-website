@@ -62,11 +62,11 @@ export default function Hero() {
             {profile.role} @ {profile.company} · {profile.location}
           </motion.p>
 
-          <h1 className="font-display text-[clamp(3.6rem,11vw,8.5rem)] font-bold leading-[0.88] tracking-[-0.045em]">
+          <h1 className="font-classic text-[clamp(4rem,12vw,9.5rem)] font-semibold leading-[0.9] tracking-[-0.01em]">
             {[first, last].map((word, wi) => (
               <span key={word} className="block overflow-hidden pb-2">
                 <motion.span
-                  className={`inline-block ${wi === 1 ? "text-gradient pl-[0.04em]" : "text-fg"}`}
+                  className={`inline-block ${wi === 1 ? "text-gradient" : "text-fg"}`}
                   initial={{ y: "110%" }}
                   animate={{ y: 0 }}
                   transition={{ duration: 1, delay: 0.15 + wi * 0.12, ease }}

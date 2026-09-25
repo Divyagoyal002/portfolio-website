@@ -28,6 +28,7 @@
   --font-display: var(--font-grotesk), var(--font-inter), sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
   --font-serif: var(--font-serif), Georgia, serif;
+  --font-classic: var(--font-classic), Garamond, Georgia, serif;
 }
 
 html {
@@ -88,7 +89,6 @@ body::after {
 }
 
 /* Accent words in headings switch to an italic serif */
-h1 .text-gradient,
 h2 .text-gradient {
   font-family: var(--font-serif), Georgia, serif;
   font-style: italic;

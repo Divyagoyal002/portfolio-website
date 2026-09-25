@@ -41,15 +41,11 @@ export default function Nav() {
     <header className="fixed inset-x-0 top-0 z-50">
       <motion.div style={{ scaleX: progress }} className="h-[2px] origin-left bg-gradient-to-r from-violet via-cyan to-pink" />
       <nav
-        className={`mx-auto mt-3 flex max-w-5xl items-center justify-between rounded-full px-5 py-2.5 transition-all duration-500 ${
+        className={`mx-auto mt-3 flex max-w-5xl items-center justify-end rounded-full md:justify-between px-5 py-2.5 transition-all duration-500 ${
           scrolled ? "glass !bg-bg/75 shadow-[0_8px_40px_rgba(0,0,0,0.45)]" : "border border-transparent"
         }`}
         style={{ width: "calc(100% - 24px)" }}
       >
-        <a href="#top" className="font-display text-lg font-semibold tracking-tight text-fg">
-          Divya Goyal<span className="text-violet">.</span>
-        </a>
-
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
             <li key={l.id}>
