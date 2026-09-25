@@ -45,7 +45,7 @@ export const experience: Experience[] = [
   {
     role: "AI/ML Engineer",
     org: "Onetab Generative Pvt. Ltd.",
-    period: "2025 — Present",
+    period: "Apr 2025 — Present",
     current: true,
     summary:
       "I own the real-time voice AI stack and build the agentic back-ends behind Onetab's products.",
@@ -62,7 +62,7 @@ export const experience: Experience[] = [
   {
     role: "AI/ML Intern",
     org: "Linkites InfoTech",
-    period: "Feb 2025 — Jul 2025",
+    period: "Feb 2025 — Mar 2025",
     summary:
       "Worked across deep learning and generative AI, from vision models to LLM agents.",
     points: [
