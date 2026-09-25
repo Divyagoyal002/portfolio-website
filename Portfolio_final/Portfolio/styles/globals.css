@@ -1,173 +1,152 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #F5F5F5;
-  --secondary: #A7C7E7;
-  --background: #ffffff;
-  --foreground: #333333;
-  --accent-primary: #F28C8C;
-  --accent-secondary: #E57373;
-  --font-primary: 'Poppins', sans-serif;
-  --spacing-base: 1rem;
-  --border-radius: 8px;
-  --transition: all 0.3s ease;
-  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --hover-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  --grid-overlay: rgba(167, 199, 231, 0.05);
-  --glass-background: rgba(255, 255, 255, 0.95);
-  --glass-border: rgba(167, 199, 231, 0.2);
-  --glass-shadow: 0 8px 32px rgba(167, 199, 231, 0.12);
+  --bg: #07070c;
+  --bg-elev: #0e0e16;
+  --card: rgba(255, 255, 255, 0.035);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --fg: #ececf3;
+  --muted: #9a9aae;
+  --faint: #5d5d70;
+  --violet: #8b6cff;
+  --cyan: #2fd9f0;
+  --pink: #f472b6;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  --font-sans: var(--font-primary);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-elev: var(--bg-elev);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--border);
+  --color-violet: var(--violet);
+  --color-cyan: var(--cyan);
+  --color-pink: var(--pink);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-grotesk), var(--font-inter), sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #333333;
-    --glass-background: rgba(255, 255, 255, 0.95);
-    --glass-border: rgba(167, 199, 231, 0.2);
-    --grid-overlay: rgba(167, 199, 231, 0.05);
-  }
+html {
+  background: var(--bg);
+  color-scheme: dark;
+}
+
+/* Lenis handles smooth scrolling; keep native behaviour sane when it is off */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-primary);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #ffffff 0%, #F5F5F5 100%);
-  min-height: 100vh;
-  position: relative;
+  overflow-x: hidden;
 }
 
-body::before {
-  content: '';
+::selection {
+  background: rgba(139, 108, 255, 0.45);
+  color: #fff;
+}
+
+/* Film grain overlay for depth */
+body::after {
+  content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    transparent 0,
-    var(--grid-overlay) 1px,
-    transparent 2px
-  ),
-  repeating-linear-gradient(
-    90deg,
-    transparent 0,
-    var(--grid-overlay) 1px,
-    transparent 2px
-  );
-  background-size: 30px 30px;
+  inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 60;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-primary);
-  font-weight: 700;
-  color: var(--foreground);
-  letter-spacing: -0.025em;
+.text-gradient {
+  background: linear-gradient(100deg, #fff 0%, #cbbfff 35%, var(--cyan) 70%, var(--pink) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.glass {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Card with a cursor-following spotlight; --mx/--my are set from JS */
+.spotlight {
   position: relative;
-  z-index: 2;
+  isolation: isolate;
 }
-
-a {
-  color: var(--accent-primary);
-  text-decoration: none;
-  transition: var(--transition);
-  position: relative;
-  z-index: 2;
-}
-
-a:hover {
-  color: var(--accent-secondary);
-  text-shadow: 0 0 10px rgba(242, 140, 140, 0.2);
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-base);
-  background: var(--glass-background);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  position: relative;
-  z-index: 2;
-  box-shadow: var(--glass-shadow);
-  border-radius: var(--border-radius);
-}
-
-.button {
-  background: linear-gradient(135deg, var(--secondary), var(--accent-primary));
-  color: var(--foreground);
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--border-radius);
-  font-weight: 500;
-  transition: var(--transition);
-  border: none;
-  box-shadow: var(--box-shadow);
-  position: relative;
-  overflow: hidden;
-  z-index: 2;
-}
-
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--hover-shadow);
-}
-
-.button::after {
-  content: '';
+.spotlight::before {
+  content: "";
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(167, 199, 231, 0.3),
-    transparent
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent, var(--violet)) 22%, transparent),
+    transparent 60%
   );
-  transform: rotate(45deg);
-  transition: var(--transition);
+}
+.spotlight:hover::before {
+  opacity: 1;
 }
 
-.button:hover::after {
-  transform: rotate(45deg) translate(50%, 50%);
+.marquee {
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-.section {
-  padding: calc(var(--spacing-base) * 4) 0;
-  background: linear-gradient(
-    45deg,
-    var(--primary),
-    #ffffff
-  );
-  position: relative;
-  overflow: hidden;
-  z-index: 2;
+.dash-flow {
+  stroke-dasharray: 6 8;
+  animation: dash 1.2s linear infinite;
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: -28;
+  }
 }
 
-.section::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, transparent 0%, rgba(167, 199, 231, 0.05) 100%);
-  pointer-events: none;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
