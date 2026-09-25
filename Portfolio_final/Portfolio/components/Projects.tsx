@@ -165,7 +165,7 @@ export default function Projects() {
   return (
     <section id="projects" className="relative mx-auto max-w-6xl px-5 py-28 md:py-36">
       <SectionHeading
-        index="03"
+        index="04"
         kicker="Selected work"
         title={
           <>

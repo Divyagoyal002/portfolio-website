@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
+import Mentorship from "@/components/Mentorship";
 import GithubFeed from "@/components/GithubFeed";
 import Skills from "@/components/Skills";
 import Contact, { Footer } from "@/components/Contact";
@@ -21,6 +22,7 @@ export default function Home({ repos }: { repos: Repo[] }) {
         <Hero />
         <About />
         <Experience />
+        <Mentorship />
         <Projects />
         <section className="mx-auto -mt-16 max-w-6xl px-5">
           <GithubFeed repos={repos} />

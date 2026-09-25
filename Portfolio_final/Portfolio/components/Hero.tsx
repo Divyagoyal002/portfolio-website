@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { SiLinktree } from "react-icons/si";
 import { profile } from "@/data/portfolio";
 import Waveform from "./Waveform";
 import LiveCall from "./LiveCall";
@@ -61,11 +62,11 @@ export default function Hero() {
             {profile.role} @ {profile.company} · {profile.location}
           </motion.p>
 
-          <h1 className="font-display text-[clamp(3.2rem,10vw,7.5rem)] font-semibold leading-[0.9] tracking-[-0.04em]">
+          <h1 className="font-display text-[clamp(3.6rem,11vw,8.5rem)] font-bold leading-[0.88] tracking-[-0.045em]">
             {[first, last].map((word, wi) => (
               <span key={word} className="block overflow-hidden pb-2">
                 <motion.span
-                  className={`inline-block ${wi === 1 ? "text-gradient" : "text-fg"}`}
+                  className={`inline-block ${wi === 1 ? "text-gradient pl-[0.04em]" : "text-fg"}`}
                   initial={{ y: "110%" }}
                   animate={{ y: 0 }}
                   transition={{ duration: 1, delay: 0.15 + wi * 0.12, ease }}
@@ -91,6 +92,11 @@ export default function Hero() {
                 </a>
               </Magnetic>
               <Magnetic>
+                <a href={profile.topmate} target="_blank" rel="noopener noreferrer" className="glass inline-flex rounded-full px-7 py-3.5 font-medium text-fg transition-colors hover:border-white/30">
+                  1:1 Mentorship ↗
+                </a>
+              </Magnetic>
+              <Magnetic>
                 <a href={profile.resume} target="_blank" rel="noopener noreferrer" className="glass inline-flex rounded-full px-7 py-3.5 font-medium text-fg transition-colors hover:border-white/30">
                   Résumé ↗
                 </a>
@@ -100,6 +106,7 @@ export default function Hero() {
                   { href: profile.github, Icon: FaGithub, label: "GitHub" },
                   { href: profile.linkedin, Icon: FaLinkedin, label: "LinkedIn" },
                   { href: profile.twitter, Icon: FaXTwitter, label: "X" },
+                  { href: profile.linktree, Icon: SiLinktree, label: "Linktree" },
                 ].map(({ href, Icon, label }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="transition hover:-translate-y-0.5 hover:text-fg">
                     <Icon />

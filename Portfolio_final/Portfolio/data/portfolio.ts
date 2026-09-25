@@ -7,8 +7,9 @@ export const profile = {
   location: "Indore, India",
   email: "divyagoyalbg@gmail.com",
   resume:
-    "https://drive.google.com/file/d/1lXxvJTMg7PL2cYJe-is9tEx-_pLdecyF/view?usp=drive_link",
+    "https://drive.google.com/file/d/1uEu5Os0umwNjw9OmSJ1wbCaZdRRVv7mW/view?usp=sharing",
   topmate: "https://topmate.io/divya_goyal10",
+  linktree: "https://linktr.ee/goyaldivya",
   github: "https://github.com/Divyagoyal002",
   linkedin: "https://linkedin.com/in/divyagoyalds",
   twitter: "https://x.com/divyagoyalbg",
@@ -54,8 +55,9 @@ export const experience: Experience[] = [
       "Built per-call cost accounting across precall, transcription and extraction, plus call queues, retry scheduling, human handoff and lead dashboards.",
       "Extended oneAudit's document-verification agents with a Qwen OCR pipeline, guideline checks, forgery and signature detection.",
       "Took OneCode, a prompt-to-app code generator, to production with an edit-query router and automatic error fixing.",
+      "Mentor the interns in our office: onboarding them onto the voice and agent stacks, reviewing their code and pairing on their first production features.",
     ],
-    tags: ["OpenAI Realtime", "FastAPI", "WebSockets", "Cartesia", "Telephony", "Multi-agent", "VLM / OCR", "MongoDB"],
+    tags: ["OpenAI Realtime", "FastAPI", "WebSockets", "Cartesia", "Telephony", "Multi-agent", "VLM / OCR", "MongoDB", "Mentoring"],
   },
   {
     role: "AI/ML Intern",
@@ -326,6 +328,46 @@ export const projects: Project[] = [
     accent: "#fbbf24",
   },
 ];
+
+export const mentorship = {
+  rating: 5,
+  ratings: 4,
+  bookings: 23,
+  roles: [
+    {
+      title: "Mentoring interns at Onetab",
+      body: "I guide the interns in our office from day one: architecture walkthroughs, code reviews and pairing until their work ships to production.",
+    },
+    {
+      title: "1:1 mentorship on Topmate",
+      body: "Career guidance in AI/ML, project reviews, and hands-on help with RAG, LLM apps and voice agents, through video calls or priority DMs.",
+    },
+    {
+      title: "Teaching since college",
+      body: "GDSC PR & Outreach Lead (tech sessions with 250+ attendees), mathematics tutor at KnowMerit, and programming instructor at WizKlub.",
+    },
+  ],
+  services: [
+    { name: "Ask me anything", format: "Priority DM", price: "Free" },
+    { name: "1st session", format: "15-min video call", price: "Paid" },
+    { name: "Discovery call", format: "20-min video call", price: "Paid" },
+    { name: "Follow-up session", format: "30-min video call", price: "Paid" },
+    { name: "Major / Minor project kit", format: "Data Science & AI", price: "Paid" },
+  ],
+  testimonials: [
+    {
+      quote:
+        "Super helpful and well-structured guidance! Clear suggestions for setting up a local RAG pipeline with practical tools like Ollama, FAISS, and MiniLM embeddings. The tips on OCR integration were especially useful.",
+      name: "Maneet",
+    },
+    {
+      quote:
+        "Your clear plan and guidance have been incredibly helpful, and I truly appreciate the time you took to assist me.",
+      name: "Topmate mentee",
+    },
+    { quote: "Thank you much for the clarification and free advice.", name: "Gourav" },
+  ],
+};
 
 export const skillGroups = [
   {

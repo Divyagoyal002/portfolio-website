@@ -13,7 +13,7 @@ function trackSpotlight(e: React.PointerEvent<HTMLElement>) {
 export default function Skills() {
   return (
     <section id="skills" className="relative mx-auto max-w-6xl px-5 py-28 md:py-36">
-      <SectionHeading index="04" kicker="Toolkit" title={<>What I <span className="text-gradient">work with.</span></>} />
+      <SectionHeading index="05" kicker="Toolkit" title={<>What I <span className="text-gradient">work with.</span></>} />
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((g, i) => (

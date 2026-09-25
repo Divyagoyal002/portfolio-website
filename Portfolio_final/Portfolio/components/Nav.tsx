@@ -5,6 +5,7 @@ import { profile } from "@/data/portfolio";
 const links = [
   { id: "about", label: "About" },
   { id: "work", label: "Experience" },
+  { id: "mentorship", label: "Mentorship" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "contact", label: "Contact" },
@@ -46,7 +47,7 @@ export default function Nav() {
         style={{ width: "calc(100% - 24px)" }}
       >
         <a href="#top" className="font-display text-lg font-semibold tracking-tight text-fg">
-          divya<span className="text-violet">.</span>ai
+          Divya Goyal<span className="text-violet">.</span>
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">

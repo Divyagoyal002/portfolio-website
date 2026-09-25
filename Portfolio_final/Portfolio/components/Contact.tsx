@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaGithub, FaLinkedin, FaXTwitter, FaInstagram } from "react-icons/fa6";
+import { SiLinktree } from "react-icons/si";
 import { profile } from "@/data/portfolio";
 import Reveal from "./Reveal";
 import Magnetic from "./Magnetic";
@@ -27,7 +28,7 @@ export default function Contact() {
       <div className="relative mx-auto max-w-5xl text-center">
         <Reveal>
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-muted">
-            <span className="text-violet">05</span> — Contact
+            <span className="text-violet">06</span> — Contact
           </p>
           <h2 className="mx-auto mt-6 max-w-4xl font-display text-[clamp(2.6rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-tight text-fg">
             Got something that should <span className="text-gradient">talk back?</span>
@@ -47,6 +48,11 @@ export default function Contact() {
           <Magnetic>
             <a href={profile.topmate} target="_blank" rel="noopener noreferrer" className="glass inline-flex rounded-full px-8 py-4 font-medium text-fg transition hover:border-white/30">
               Book a call on Topmate ↗
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href={profile.linktree} target="_blank" rel="noopener noreferrer" className="glass inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium text-fg transition hover:border-white/30">
+              <SiLinktree className="text-[#43e55e]" /> Linktree
             </a>
           </Magnetic>
         </Reveal>
@@ -94,6 +100,7 @@ export function Footer() {
     { href: profile.linkedin, Icon: FaLinkedin, label: "LinkedIn" },
     { href: profile.twitter, Icon: FaXTwitter, label: "X" },
     { href: profile.instagram, Icon: FaInstagram, label: "Instagram" },
+    { href: profile.linktree, Icon: SiLinktree, label: "Linktree" },
   ];
   return (
     <footer className="border-t border-line px-5 py-10">
