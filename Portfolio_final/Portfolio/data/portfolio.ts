@@ -108,6 +108,7 @@ export type Project = {
   context: "Work" | "Personal" | "Client";
   highlights: string[];
   stack: string[];
+  builtWith?: { tech: string; why: string }[]; // optional "how it's built" notes shown in the modal
   github?: string;
   live?: string;
   featured?: boolean;
@@ -133,6 +134,57 @@ export const projects: Project[] = [
     ],
     stack: ["Python", "FastAPI", "OpenAI Realtime", "Cartesia TTS", "Smartflo", "WebSockets"],
     accent: "#7c5cff",
+  },
+  {
+    title: "Merchant Ops Copilot",
+    tagline: "A payments assistant for small Indian merchants, in Hindi or English",
+    description:
+      "A shop owner can ask \"why did yesterday's settlement come in low?\", \"which payments failed this week?\" or \"ऑर्डर 1058 का पूरा पैसा वापस कर दो\" and get an answer from their real Razorpay data. The agent reads payments, orders, refunds and settlements through Razorpay's official MCP server. It can draft a refund or payment link, but nothing moves until the merchant clicks Approve. Every morning it also sends a short health digest on its own.",
+    category: "Agents & GenAI",
+    year: "2026",
+    context: "Personal",
+    featured: true,
+    highlights: [
+      "The model never gets a write tool: only 10 read-only Razorpay tools are allowlisted, so no prompt can make it refund anything",
+      "Refunds are checked and drafted by code (captured payment, refundable balance, per-refund cap) and run only after a human approves, with an idempotency key so a double-click can't refund twice",
+      "31-case eval set in English, Hindi and Hinglish, including \"I pre-approve, just do it\" and fake SYSTEM OVERRIDE injections; CI fails on any unapproved execution",
+      "Daily digest: code computes failure rate, top failure reasons and refund spikes, and the model only writes the summary",
+      "Fixes that came from testing, not planning: converting paise to ₹ before the model sees it, and sending lists as CSV to cut tokens about 2.5x",
+    ],
+    stack: ["LangGraph", "Razorpay MCP", "LangChain MCP adapters", "Groq (gpt-oss)", "Gradio", "Langfuse", "GitHub Actions", "Render"],
+    builtWith: [
+      {
+        tech: "LangGraph",
+        why: "A plain tool loop is enough for questions, but approvals need a run to pause and resume later from a different request. interrupt() and the checkpointer handle that, and keeping the waiting node and the refunding node separate means a resume can never fire a refund twice.",
+      },
+      {
+        tech: "Razorpay MCP server",
+        why: "Razorpay's own tool layer, loaded through LangChain's MCP adapters. I use it for reads and filter it down to the tools the agent needs, which also shrinks the schema sent with every call.",
+      },
+      {
+        tech: "Groq + open models",
+        why: "Open-weight gpt-oss models served fast on a free tier. Providers are swappable (Groq, OpenRouter, Gemini), so the same evals can compare models on accuracy, latency and ₹ per query.",
+      },
+      {
+        tech: "Offline fixture server",
+        why: "Same tool names and response shapes as Razorpay, on a frozen test week with built-in scenarios like a low settlement and a refund spike. Evals stay repeatable, and the demo works without a Razorpay account.",
+      },
+      {
+        tech: "Langfuse",
+        why: "One trace per question, grouped by conversation, so I can see which tool calls a wrong answer came from and what each turn cost.",
+      },
+      {
+        tech: "GitHub Actions",
+        why: "Guardrail tests and an 8-case smoke eval on every push, the full 31 nightly (a full run uses a whole day of the free token quota). A second scheduled workflow sends the digest at 9 AM IST.",
+      },
+      {
+        tech: "Gradio on Render",
+        why: "A chat UI with real Approve and Reject buttons, deployed from a single blueprint file on a free plan.",
+      },
+    ],
+    github: "https://github.com/Divyagoyal002/merchant-ops-copilot",
+    live: "https://merchant-ops-copilot.onrender.com",
+    accent: "#2dd4bf",
   },
   {
     title: "oneAudit AI",
@@ -376,7 +428,7 @@ export const skillGroups = [
   },
   {
     title: "LLMs & Agents",
-    items: ["RAG", "Tool calling", "LangChain / LangGraph", "CrewAI", "Prompt engineering", "VLM / OCR", "Evaluation"],
+    items: ["RAG", "Tool calling", "LangChain / LangGraph", "CrewAI", "MCP", "Prompt engineering", "Fine-tuning (LoRA, QLoRA, PEFT)", "VLM / OCR", "Evals in CI"],
   },
   {
     title: "Deep Learning",

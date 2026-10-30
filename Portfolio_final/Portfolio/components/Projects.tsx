@@ -125,6 +125,22 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
             ))}
           </ul>
 
+          {p.builtWith && (
+            <>
+              <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">How it&apos;s built</h4>
+              <dl className="mt-3 space-y-4">
+                {p.builtWith.map((b) => (
+                  <div key={b.tech}>
+                    <dt className="font-medium" style={{ color: p.accent }}>
+                      {b.tech}
+                    </dt>
+                    <dd className="mt-1 text-[15px] leading-relaxed text-muted">{b.why}</dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          )}
+
           <div className="mt-7 flex flex-wrap gap-2">
             {p.stack.map((s) => (
               <span key={s} className="rounded-full border border-line px-3 py-1 font-mono text-xs text-muted">
