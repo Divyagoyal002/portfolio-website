@@ -109,7 +109,7 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {profile.name} · Built with Next.js, Framer Motion & too much chai
           </p>
-          {/* Template credit: please keep this line if you reuse the site. */}
+          {/* Required author attribution (GPL-3.0 §7(b) additional term, see NOTICE). Do not remove. */}
           <p>
             Originally created by{" "}
             <a href="https://github.com/Divyagoyal002" target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2 transition hover:text-fg">

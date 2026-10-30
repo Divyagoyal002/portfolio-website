@@ -70,8 +70,8 @@ You're welcome to fork this repo and turn it into your own site.
 4. **Make it yours:** change the colours in [styles/globals.css](Portfolio_final/Portfolio/styles/globals.css) and the fonts in [_app.tsx](Portfolio_final/Portfolio/pages/_app.tsx). The voice-agent visuals ([LiveCall.tsx](Portfolio_final/Portfolio/components/LiveCall.tsx), [VoicePipeline.tsx](Portfolio_final/Portfolio/components/VoicePipeline.tsx)) are specific to my work, so swap or remove them.
 5. **Deploy** it on Vercel as described above.
 
-**One request:** keep the credit line in the footer ([Contact.tsx](Portfolio_final/Portfolio/components/Contact.tsx)) that reads *"Originally created by Divya Goyal in 2024"*. Everything else is yours to change.
+**One requirement:** keep the credit line in the footer ([Contact.tsx](Portfolio_final/Portfolio/components/Contact.tsx)) that reads *"Originally created by Divya Goyal in 2024"*. It's an attribution term of the license (see [NOTICE](NOTICE)). You can restyle it, but it has to stay visible on every page. Everything else is yours to change.
 
 ## License
 
-[GPL-3.0](LICENSE). If you redistribute a modified version of this code, it has to stay under GPL-3.0 and keep the original copyright notice.
+[GPL-3.0](LICENSE) with one additional term under Section 7(b), set out in [NOTICE](NOTICE): the footer attribution above must be kept. If you redistribute a modified version, it has to stay under GPL-3.0, keep the copyright notice and keep that attribution.

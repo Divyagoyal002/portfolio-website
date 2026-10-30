@@ -1,0 +1,48 @@
+Divya Goyal · Portfolio
+Copyright (C) 2024 Divya Goyal <https://github.com/Divyagoyal002>
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option)
+any later version, together with the additional term below. The full
+license text is in the LICENSE file.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+more details.
+
+
+ADDITIONAL TERM (GNU GPL version 3, Section 7(b): author attribution)
+
+1. Required attribution. Every copy of this program, and every work based on
+   it, must keep the following author attribution:
+
+       Originally created by Divya Goyal in 2024
+
+   with a link to https://github.com/Divyagoyal002 wherever links are
+   supported.
+
+2. Where it must appear.
+   (a) In the source code, the attribution must be kept in the footer
+       component (components/Contact.tsx in the original), or in whatever
+       component renders the site footer in a modified version.
+   (b) In the rendered website, the attribution is part of the work's
+       "Appropriate Legal Notices" as defined in Section 0 of the license.
+       It must be shown in the footer of every page, or in an equally
+       prominent place that appears on every page.
+
+3. What you may change. You may restyle the attribution (font, colour,
+   size, position within the footer) and translate it, as long as it stays
+   visible and legible to an ordinary visitor. You may add your own name and
+   copyright next to it. You may not remove, hide, obscure, or reword it in a
+   way that misstates who originally created the work.
+
+4. No endorsement. This attribution does not suggest that Divya Goyal
+   endorses any modified version. Under Section 7(c), modified versions must
+   not present themselves as the original or as made by Divya Goyal, beyond
+   this attribution.
+
+Under Section 7 of the license, this term is a permitted additional term,
+not a "further restriction", so it may not be removed from copies of the
+program or works based on it.
