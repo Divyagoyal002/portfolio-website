@@ -105,9 +105,19 @@ export function Footer() {
   return (
     <footer className="border-t border-line px-5 py-10">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 md:flex-row">
-        <p className="font-mono text-xs text-faint">
-          © {new Date().getFullYear()} {profile.name} · Built with Next.js, Framer Motion & too much chai
-        </p>
+        <div className="space-y-1.5 text-center font-mono text-xs text-faint md:text-left">
+          <p>
+            © {new Date().getFullYear()} {profile.name} · Built with Next.js, Framer Motion & too much chai
+          </p>
+          {/* Template credit: please keep this line if you reuse the site. */}
+          <p>
+            Originally created by{" "}
+            <a href="https://github.com/Divyagoyal002" target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2 transition hover:text-fg">
+              Divya Goyal
+            </a>{" "}
+            in 2024
+          </p>
+        </div>
         <div className="flex items-center gap-5 text-lg text-muted">
           {socials.map(({ href, Icon, label }) => (
             <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="transition hover:-translate-y-0.5 hover:text-fg">

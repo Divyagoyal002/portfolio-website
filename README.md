@@ -55,6 +55,23 @@ npm run lint
 
 On Vercel, import the repo and set **Root Directory** to `Portfolio_final/Portfolio`. Vercel detects Next.js and needs no other config. Optionally, add a `GITHUB_TOKEN` environment variable (any token with public read access) so the GitHub feed isn't hit by the API's unauthenticated rate limit. Every push to `main` redeploys the site.
 
+## Use it for your own portfolio
+
+You're welcome to fork this repo and turn it into your own site.
+
+1. **Fork or clone** the repo, then run it locally as shown above.
+2. **Swap in your content** in [data/portfolio.ts](Portfolio_final/Portfolio/data/portfolio.ts): your name, links, stats, experience, projects, mentorship and skills. Most of the site updates from this one file.
+3. **Update the few places that hard-code personal details:**
+   - [pages/index.tsx](Portfolio_final/Portfolio/pages/index.tsx) and [pages/_document.tsx](Portfolio_final/Portfolio/pages/_document.tsx): page title, description and link-preview tags
+   - [components/About.tsx](Portfolio_final/Portfolio/components/About.tsx): the bio paragraph and photo alt text
+   - [lib/github.ts](Portfolio_final/Portfolio/lib/github.ts): `USER` (your GitHub username) and `SKIP` (repos to hide from the feed)
+   - [components/GithubFeed.tsx](Portfolio_final/Portfolio/components/GithubFeed.tsx): the `@username` link
+   - [public/](Portfolio_final/Portfolio/public): replace `profilepic.jpg` and `favicon.ico` with your own
+4. **Make it yours:** change the colours in [styles/globals.css](Portfolio_final/Portfolio/styles/globals.css) and the fonts in [_app.tsx](Portfolio_final/Portfolio/pages/_app.tsx). The voice-agent visuals ([LiveCall.tsx](Portfolio_final/Portfolio/components/LiveCall.tsx), [VoicePipeline.tsx](Portfolio_final/Portfolio/components/VoicePipeline.tsx)) are specific to my work, so swap or remove them.
+5. **Deploy** it on Vercel as described above.
+
+**One request:** keep the credit line in the footer ([Contact.tsx](Portfolio_final/Portfolio/components/Contact.tsx)) that reads *"Originally created by Divya Goyal in 2024"*. Everything else is yours to change.
+
 ## License
 
-[GPL-3.0](LICENSE)
+[GPL-3.0](LICENSE). If you redistribute a modified version of this code, it has to stay under GPL-3.0 and keep the original copyright notice.
