@@ -143,6 +143,11 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
                 ))}
               </dl>
               <p className="mt-3 text-xs leading-relaxed text-faint">{p.measured.note}</p>
+              {p.measured.source && (
+                <a href={p.measured.source} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-mono text-xs underline-offset-4 hover:underline" style={{ color: p.accent }}>
+                  Raw results and commands ↗
+                </a>
+              )}
             </>
           )}
 
