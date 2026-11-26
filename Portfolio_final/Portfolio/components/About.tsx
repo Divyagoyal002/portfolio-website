@@ -28,7 +28,7 @@ function Counter({ value, suffix = "", decimals = 0 }: { value: number; suffix?:
   );
 }
 
-const marquee = ["OpenAI Realtime", "PyTorch", "FastAPI", "LangGraph", "Cartesia", "RAG", "WebSockets", "Qwen-VL", "Next.js", "MongoDB", "CrewAI", "Docker", "AWS", "scikit-learn"];
+const marquee = ["OpenAI Realtime", "LangGraph", "MCP", "Structured Outputs", "PyTorch", "FastAPI", "Cartesia", "RAG", "Langfuse", "Qwen-VL", "Valkey", "Next.js", "PostgreSQL", "Docker", "AWS"];
 
 export default function About() {
   return (
@@ -59,7 +59,7 @@ export default function About() {
               I&apos;m an <span className="text-fg">AI/ML Engineer at Onetab Generative</span>, with an M.Tech in AI &amp; Data Science from DAVV. I started in analytics and statistics, moved into deep learning, and now build generative AI systems that ship to production.
             </p>
             <p>
-              Most days I work on <span className="text-fg">real-time voice agents</span>. These are phone agents that listen, reason, call tools and answer in the middle of a sentence, with latency, cost and pronunciation tuned for Indian callers. I also build <span className="text-fg">multi-agent document AI</span> and code-generation systems.
+              Most days I work on <span className="text-fg">real-time voice agents</span>. These are phone agents that listen, reason, call tools and answer in the middle of a sentence, with latency, cost and pronunciation tuned for Indian callers. I also build <span className="text-fg">document AI</span> and agents that act on real business data behind human approval. For each of these I keep an eval set, so a prompt or model change is judged on numbers rather than on a demo.
             </p>
             <p>
               Outside work I take on research-grade side projects: physics-informed super-resolution of ocean currents, wearable gait sensing for dogs, and cognitive-screening games for older adults.

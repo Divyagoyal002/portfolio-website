@@ -52,6 +52,12 @@ function Card({ p, onOpen, big }: { p: Project; onOpen: () => void; big: boolean
           {p.tagline}
         </p>
         <p className={`mt-3 text-[15px] leading-relaxed text-muted ${big ? "" : "line-clamp-3"}`}>{p.description}</p>
+        {p.measured && (
+          <p className="mt-3 font-mono text-[11px] text-fg/70">
+            <span style={{ color: p.accent }}>measured · </span>
+            {p.measured.items[0].value} {p.measured.items[0].label}
+          </p>
+        )}
         <div className="mt-auto flex flex-wrap gap-1.5 pt-5">
           {p.stack.slice(0, big ? 6 : 4).map((s) => (
             <span key={s} className="rounded-full bg-white/[0.05] px-2.5 py-1 font-mono text-[11px] text-fg/70">
@@ -124,6 +130,21 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
               </li>
             ))}
           </ul>
+
+          {p.measured && (
+            <>
+              <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">Measured</h4>
+              <dl className="mt-3 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
+                {p.measured.items.map((m) => (
+                  <div key={m.label} className="bg-elev p-4">
+                    <dt className="font-mono text-lg text-fg">{m.value}</dt>
+                    <dd className="mt-1 text-sm leading-snug text-muted">{m.label}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-3 text-xs leading-relaxed text-faint">{p.measured.note}</p>
+            </>
+          )}
 
           {p.builtWith && (
             <>
