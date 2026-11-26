@@ -37,7 +37,7 @@ export default function Skills() {
             </div>
             {i === 0 && (
               <p className="mt-8 text-sm leading-relaxed text-muted">
-                My specialty is the hard part of voice AI: keeping a phone call feeling human when every hop (telephony, model, TTS) adds latency.
+                I treat an LLM feature as unfinished until it has an eval set. Fixed inputs, a metric that matches the business need, and a re-run after every change are how I tell a real improvement from a lucky demo.
               </p>
             )}
           </Reveal>

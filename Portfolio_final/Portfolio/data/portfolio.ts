@@ -16,17 +16,17 @@ export const profile = {
   instagram: "https://instagram.com/heyits_divyana",
   rotatingRoles: [
     "real-time voice agents",
-    "agentic document auditors",
-    "prompt-to-app code generators",
-    "physics-informed deep learning",
+    "tool-using agents with human approval",
+    "evals for LLM systems",
+    "document AI pipelines",
   ],
   intro:
-    "I build AI systems that talk, read and reason, and I ship them to production. Right now that means phone agents that hold natural conversations in English, Hindi and Telugu, and multi-agent pipelines that audit documents faster than a human reviewer.",
+    "I build LLM systems that run in production and I measure them. Most of my work is phone agents that hold conversations in English, Hindi and Telugu, agents that act on real business data behind approval gates, and the eval sets that tell me whether a change actually helped.",
 };
 
 export const stats = [
   { value: 7, suffix: "+", label: "voice agents built" },
-  { value: 500, suffix: "+", label: "commits since 2025" },
+  { value: 4, suffix: "", label: "production systems benchmarked with reproducible evals" },
   { value: 3, suffix: "", label: "languages spoken by my agents" },
   { value: 9.1, suffix: "", label: "CGPA, M.Tech AI & DS", decimals: 1 },
 ];
@@ -53,11 +53,12 @@ export const experience: Experience[] = [
       "Designed and shipped real-time phone agents for ERP sales, hospital appointments, logistics support, freight lead qualification, travel sales and recruitment screening.",
       "Engineered the audio loop: μ-law telephony streams → OpenAI Realtime → streaming Cartesia TTS, with barge-in, echo cancellation, silence detection and per-turn latency tracking.",
       "Built per-call cost accounting across precall, transcription and extraction, plus call queues, retry scheduling, human handoff and lead dashboards.",
-      "Extended oneAudit's document-verification agents with a Qwen OCR pipeline, guideline checks, forgery and signature detection.",
-      "Took OneCode, a prompt-to-app code generator, to production with an edit-query router and automatic error fixing.",
+      "Built eval harnesses for post-call extraction on synthetic multilingual transcripts. One run traced every Hindi field error to a missing output-language rule; adding one prompt line lifted Hindi field F1 from about 0.6 to 1.0. Another moved extraction to strict JSON-schema outputs and cut callback-time formats from 5 to 1.",
+      "Extended oneAudit's document-verification agents with a Qwen OCR pipeline, guideline checks, forgery and signature detection, and built a PDF-tampering feasibility POC (14 of 19 tampered files flagged, 0 of 12 clean files on a controlled set).",
+      "Took OneCode, a prompt-to-app code generator, to production with an edit-query router and build-error fix endpoints.",
       "Mentor the interns in our office: onboarding them onto the voice and agent stacks, reviewing their code and pairing on their first production features.",
     ],
-    tags: ["OpenAI Realtime", "FastAPI", "WebSockets", "Cartesia", "Telephony", "Multi-agent", "VLM / OCR", "MongoDB", "Mentoring"],
+    tags: ["OpenAI Realtime", "FastAPI", "WebSockets", "Cartesia", "Telephony", "Structured Outputs", "Evals", "VLM / OCR", "MongoDB", "Mentoring"],
   },
   {
     role: "AI/ML Intern",
@@ -109,6 +110,8 @@ export type Project = {
   highlights: string[];
   stack: string[];
   builtWith?: { tech: string; why: string }[]; // optional "how it's built" notes shown in the modal
+  // optional measured results; `note` states the dataset and caveats, so a number never appears without them
+  measured?: { items: { value: string; label: string }[]; note: string };
   github?: string;
   live?: string;
   featured?: boolean;
@@ -123,16 +126,26 @@ export const projects: Project[] = [
       "A FastAPI system between the phone network and the models. It streams live call audio to OpenAI Realtime, turns replies into speech with Cartesia while the model is still generating, and calls tools during the conversation. Built for seven businesses in sales, healthcare, logistics, travel and recruitment.",
     category: "Voice AI",
     year: "2026",
-    context: "Work",
     featured: true,
+    context: "Work",
     highlights: [
       "Greeting audio is generated before the call connects, so callers hear a voice right away",
       "Barge-in, echo cancellation and silence monitoring over 8 kHz μ-law audio",
       "Tool calls in the middle of a call: doctor lookup, shipment status, ticket raising, CRM checks",
       "Per-call cost tracking and per-turn latency logging in production",
       "English, Hindi and Telugu, tuned for Indian name pronunciation",
+      "Post-call extraction to the CRM, evaluated on fixed multilingual and adversarial transcript sets",
     ],
-    stack: ["Python", "FastAPI", "OpenAI Realtime", "Cartesia TTS", "Smartflo", "WebSockets"],
+    measured: {
+      items: [
+        { value: "0.6 → 1.0", label: "Hindi field F1 after one output-language prompt line (recruitment agent)" },
+        { value: "5 → 1", label: "callback-time formats after moving to strict JSON-schema outputs" },
+        { value: "6 → 0", label: "self-contradictory ERP records across 243 extraction calls" },
+        { value: "2.4 s · $0.002", label: "p95 latency and cost per post-call extraction" },
+      ],
+      note: "Synthetic transcripts with labels generated from the spec (50 + 31 adversarial calls for the sales agent, 40 for the recruitment agent; English, Hinglish, Hindi, Telugu), 3 runs each on gpt-4.1. No ASR noise, so the scores are an upper bound. The strict-schema change added about 21% to input tokens.",
+    },
+    stack: ["Python", "FastAPI", "OpenAI Realtime", "Cartesia TTS", "Smartflo", "WebSockets", "Structured Outputs"],
     accent: "#7c5cff",
   },
   {
@@ -142,8 +155,8 @@ export const projects: Project[] = [
       "A shop owner can ask \"why did yesterday's settlement come in low?\", \"which payments failed this week?\" or \"ऑर्डर 1058 का पूरा पैसा वापस कर दो\" and get an answer from their real Razorpay data. The agent reads payments, orders, refunds and settlements through Razorpay's official MCP server. It can draft a refund or payment link, but nothing moves until the merchant clicks Approve. Every morning it also sends a short health digest on its own.",
     category: "Agents & GenAI",
     year: "2026",
-    context: "Personal",
     featured: true,
+    context: "Personal",
     highlights: [
       "The model never gets a write tool: only 10 read-only Razorpay tools are allowlisted, so no prompt can make it refund anything",
       "Refunds are checked and drafted by code (captured payment, refundable balance, per-refund cap) and run only after a human approves, with an idempotency key so a double-click can't refund twice",
@@ -151,6 +164,13 @@ export const projects: Project[] = [
       "Daily digest: code computes failure rate, top failure reasons and refund spikes, and the model only writes the summary",
       "Fixes that came from testing, not planning: converting paise to ₹ before the model sees it, and sending lists as CSV to cut tokens about 2.5x",
     ],
+    measured: {
+      items: [
+        { value: "17 / 17", label: "guardrail tests pass (no write tools, approval gate, idempotent refunds)" },
+        { value: "55%", label: "line coverage; core graph and copilot modules 82–92%" },
+      ],
+      note: "Run offline against the fixture server. The 31-case model eval is in the repo and runs in CI; I'll add its scores here after the next full run.",
+    },
     stack: ["LangGraph", "Razorpay MCP", "LangChain MCP adapters", "Groq (gpt-oss)", "Gradio", "Langfuse", "GitHub Actions", "Render"],
     builtWith: [
       {
@@ -187,14 +207,42 @@ export const projects: Project[] = [
     accent: "#2dd4bf",
   },
   {
+    title: "Tactive AI Copilot",
+    tagline: "Generative AI for financial advisors",
+    description:
+      "AI features for a financial-advisory SaaS: generated financial plans with charted PDFs, market commentary with cited disclosures, objection handling, conversation scripts, follow-ups and prospect pitch decks.",
+    category: "Agents & GenAI",
+    year: "2026",
+    featured: true,
+    context: "Client",
+    highlights: [
+      "Source citation and signal detection across client context",
+      "Compliance-aware disclosures",
+      "Pitch-deck generation from the prospect engine",
+      "Benchmarked the production vector search (Valkey HNSW, 3072-d embeddings) against BM25: vectors handle paraphrased questions, but miss exact account numbers",
+      "Tuning one hybrid weight didn't work (cross-validation folds picked opposite extremes). The recommended design routes identifier lookups to exact search and everything else to vectors",
+    ],
+    measured: {
+      items: [
+        { value: "1.00 vs 0.42", label: "vector Recall@5 on conceptual questions vs exact-identifier lookups" },
+        { value: "1.00", label: "Recall@5 on both query types with an identifier router" },
+        { value: "0.9995 · 3 ms", label: "HNSW recall@10 and p50 search latency at the production ef_runtime" },
+        { value: "358 / 358", label: "existing tests passing after fixing one stale assertion" },
+      ],
+      note: "248 synthetic CRM and portfolio records, 72 queries with one gold record each, run through the production search code. The query types are cleanly separated, so the router result is optimistic. HNSW numbers are from 20k synthetic vectors on a single local node. No client data was used.",
+    },
+    stack: ["TypeScript", "Next.js", "Prisma", "AWS", "Valkey vector search", "OpenAI embeddings", "Vitest"],
+    accent: "#facc15",
+  },
+  {
     title: "oneAudit AI",
     tagline: "Multi-agent document verification",
     description:
       "A set of specialised agents that classify documents, extract data, check them against lending guidelines and flag forgery, missing signatures and quality problems. The output is an auditor-ready checklist.",
     category: "Agents & GenAI",
     year: "2026",
-    context: "Work",
     featured: true,
+    context: "Work",
     highlights: [
       "Qwen-based OCR pipeline for scanned documents",
       "Guideline-table reasoning with semantic matching",
@@ -204,19 +252,52 @@ export const projects: Project[] = [
     accent: "#22d3ee",
   },
   {
+    title: "PDF Tampering Detection",
+    tagline: "Finds signs of editing in a PDF without the original",
+    description:
+      "A feasibility POC for the document-audit product. It runs eleven checks (revision history, signatures, font and baseline consistency, overlays, OCR vs the text layer, scan-noise maps) and returns a verdict with each suspicious region boxed on the page. It's served as a FastAPI endpoint.",
+    category: "ML & Data",
+    year: "2026",
+    context: "Work",
+    highlights: [
+      "Every finding carries a page, a region, a reason and the evidence, so a reviewer can check it",
+      "Verdicts are worded as indicators, never 'authentic' or 'forged'",
+      "All 5 misses were predicted when the samples were built: structural limits such as print-and-rescan, not tuning problems",
+      "Next step written into the report: measure false positives on a few hundred real documents",
+    ],
+    measured: {
+      items: [
+        { value: "14 / 19", label: "tampered files flagged, with the edited region boxed in 13" },
+        { value: "0 / 12", label: "clean files flagged" },
+      ],
+      note: "A controlled set of 31 PDFs, mostly synthetic. The false-positive rate on real-world documents is not yet known.",
+    },
+    stack: ["Python", "PyMuPDF", "pyHanko", "Tesseract OCR", "FastAPI"],
+    accent: "#f59e0b",
+  },
+  {
     title: "OneCode",
     tagline: "Prompt → working React + Node app",
     description:
-      "A code generation engine that turns a prompt into a multi-file React + Node.js project, then routes follow-up requests to targeted edits or full regeneration and fixes build errors on its own.",
+      "A code generation engine that turns a prompt into a multi-file React + Node.js project, then routes follow-up requests to targeted edits or full regeneration, with endpoints that suggest and apply fixes for build errors.",
     category: "Agents & GenAI",
     year: "2025",
     context: "Work",
-    featured: true,
     highlights: [
       "Update-query router: edit only what changed",
-      "Self-healing fix_errors loop",
+      "Build-error fix and apply endpoints, plus a post-generation icon-import fixer",
+      "Retry with jitter on model overload errors",
       "Live preview and git suggestions",
+      "Later added the first test suite (14 deterministic tests) and measured the fixers against the real package exports",
     ],
+    measured: {
+      items: [
+        { value: "0.70 → 0.97", label: "simulated call success with overload retry at a 30% overload rate" },
+        { value: "230 / 230", label: "icon import paths rewritten correctly for the v2 package" },
+        { value: "10 / 120", label: "renamed icons repaired. Too low; the fix is to generate the rename map from both package versions" },
+      ],
+      note: "Deterministic checks only. The original model versions are retired, so generation quality wasn't re-measured.",
+    },
     stack: ["Python", "LLMs", "Prompt Engineering", "React", "Node.js"],
     accent: "#f472b6",
   },
@@ -228,7 +309,6 @@ export const projects: Project[] = [
     category: "Research",
     year: "2026",
     context: "Personal",
-    featured: true,
     highlights: [
       "OSSE training on high-resolution reanalysis, applied to real Copernicus data",
       "Alboran–Balearic region at 1/24° during the SWOT era (2022–2024)",
@@ -237,6 +317,51 @@ export const projects: Project[] = [
     stack: ["PyTorch", "xarray", "Oceanography", "Spectral analysis"],
     github: "https://github.com/Divyagoyal002/submesoscale",
     accent: "#38bdf8",
+  },
+  {
+    title: "Business Ops App with an AI Assistant",
+    tagline: "Bookkeeping for an event-decoration company, with a chat assistant that can't change data on its own",
+    description:
+      "Events, payments, expenses, payroll, inventory and reports for a small business, live in production since v1.0. The owner can type \"420 khana, 300 petrol\" and get expense rows to check, or ask the assistant in Hindi or English about anything in the books.",
+    category: "Agents & GenAI",
+    year: "2026",
+    context: "Client",
+    highlights: [
+      "The assistant is read-only. It can prepare entries, but they're saved only when the user taps Confirm",
+      "Every answer has a folded Source with the exact figures from the records",
+      "Scoped to business questions and hardened against prompt injection",
+      "Argon2 auth, CSRF, strict CSP, nightly backups and one-command deploys with migrations",
+    ],
+    stack: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Alembic", "Docker Compose", "LLM tool calling"],
+    accent: "#10b981",
+  },
+  {
+    title: "Voice Agent Framework",
+    tagline: "Provider-agnostic, multi-tenant voice agents",
+    description:
+      "A rebuild of what I learned in production as a reusable framework. LLM, STT, TTS and telephony providers are plug-ins, and business workflows are configured rather than coded.",
+    category: "Voice AI",
+    year: "2026",
+    context: "Personal",
+    highlights: ["Clean provider interfaces", "Postgres + Alembic, Docker", "Typed, linted, pre-commit"],
+    stack: ["Python", "FastAPI", "Docker", "PostgreSQL"],
+    accent: "#c084fc",
+  },
+  {
+    title: "LoRA Text-to-SQL",
+    tagline: "Fine-tuning a 0.5B model on a laptop",
+    description:
+      "A LoRA fine-tune of Qwen2.5-0.5B-Instruct on sql-create-context with PEFT. The loss is masked to the answer tokens. One script compares base and adapter on held-out questions with exact match, using the same model object, and another merges the adapter for inference with no overhead.",
+    category: "ML & Data",
+    year: "2026",
+    context: "Personal",
+    highlights: [
+      "Adapters on attention and MLP projections, about 1–2% of parameters trainable",
+      "Prompt-token masking (labels = -100) so the model learns only the SQL",
+      "Runs on Apple MPS, CUDA or CPU",
+    ],
+    stack: ["PyTorch", "Hugging Face", "PEFT / LoRA", "Qwen2.5"],
+    accent: "#818cf8",
   },
   {
     title: "PawPath",
@@ -271,34 +396,6 @@ export const projects: Project[] = [
     stack: ["Python", "FastAPI", "SQLite", "scikit-learn"],
     github: "https://github.com/Divyagoyal002/soundKraft",
     accent: "#a3e635",
-  },
-  {
-    title: "Tactive AI Copilot",
-    tagline: "Generative AI for financial advisors",
-    description:
-      "AI features for a financial-advisory SaaS: generated financial plans with charted PDFs, market commentary with cited disclosures, objection handling, conversation scripts, follow-ups and prospect pitch decks.",
-    category: "Agents & GenAI",
-    year: "2026",
-    context: "Client",
-    highlights: [
-      "Source citation and signal detection across client context",
-      "Compliance-aware disclosures",
-      "Pitch-deck generation from the prospect engine",
-    ],
-    stack: ["TypeScript", "Next.js", "Prisma", "AWS", "LLMs"],
-    accent: "#facc15",
-  },
-  {
-    title: "Voice Agent Framework",
-    tagline: "Provider-agnostic, multi-tenant voice agents",
-    description:
-      "A rebuild of what I learned in production as a reusable framework. LLM, STT, TTS and telephony providers are plug-ins, and business workflows are configured rather than coded.",
-    category: "Voice AI",
-    year: "2026",
-    context: "Personal",
-    highlights: ["Clean provider interfaces", "Postgres + Alembic, Docker", "Typed, linted, pre-commit"],
-    stack: ["Python", "FastAPI", "Docker", "PostgreSQL"],
-    accent: "#c084fc",
   },
   {
     title: "Fin Bot",
@@ -366,19 +463,6 @@ export const projects: Project[] = [
     github: "https://github.com/Divyagoyal002/Entity_extraction_from_Image",
     accent: "#e879f9",
   },
-  {
-    title: "Twitter Sentiment Analysis",
-    tagline: "Real-time brand sentiment monitor",
-    description:
-      "Classifies tweets with TextBlob and plots sentiment trends so marketing teams can track how a campaign is received.",
-    category: "ML & Data",
-    year: "2024",
-    context: "Personal",
-    highlights: ["Tweepy streaming", "TextBlob polarity", "Plotly trends"],
-    stack: ["Python", "TextBlob", "Tweepy", "Plotly"],
-    github: "https://github.com/Divyagoyal002/Sentimental-Analysis",
-    accent: "#fbbf24",
-  },
 ];
 
 export const mentorship = {
@@ -423,23 +507,43 @@ export const mentorship = {
 
 export const skillGroups = [
   {
+    title: "Agents & LLM Apps",
+    items: [
+      "Tool calling",
+      "Structured Outputs (JSON schema)",
+      "LangGraph (state, interrupts, checkpoints)",
+      "MCP servers & clients",
+      "Human-in-the-loop approvals",
+      "Guardrails & prompt-injection tests",
+      "RAG",
+      "Hybrid retrieval (vector, BM25, routing)",
+      "VLM / OCR document pipelines",
+      "Fine-tuning (LoRA / PEFT)",
+      "OpenAI · Claude · Gemini · Groq · Ollama",
+    ],
+  },
+  {
+    title: "Evals & Observability",
+    items: [
+      "Eval set design (synthetic, adversarial)",
+      "Field-level P / R / F1",
+      "Recall@k · MRR · nDCG",
+      "p50 / p95 latency, cost per call",
+      "Error analysis → fix → re-measure",
+      "Langfuse tracing",
+      "Evals & guardrail tests in CI",
+    ],
+  },
+  {
     title: "Voice & Realtime",
     items: ["OpenAI Realtime", "Cartesia", "VAD / turn detection", "Telephony (Smartflo, Twilio)", "WebSockets", "Audio DSP"],
   },
   {
-    title: "LLMs & Agents",
-    items: ["RAG", "Tool calling", "LangChain / LangGraph", "CrewAI", "MCP", "Prompt engineering", "Fine-tuning (LoRA, QLoRA, PEFT)", "VLM / OCR", "Evals in CI"],
+    title: "Engineering & Infra",
+    items: ["Python", "FastAPI", "TypeScript", "Next.js", "PostgreSQL", "MongoDB", "Valkey / Redis vector search", "Docker", "AWS", "GitHub Actions"],
   },
   {
-    title: "Deep Learning",
-    items: ["PyTorch", "CNN / LSTM", "Physics-informed losses", "FaceNet", "Super-resolution", "scikit-learn"],
-  },
-  {
-    title: "Engineering",
-    items: ["Python", "FastAPI", "TypeScript", "Next.js", "MongoDB", "PostgreSQL", "Docker", "AWS"],
-  },
-  {
-    title: "Data & Analytics",
-    items: ["SQL", "Pandas", "Statistics", "Power BI", "Tableau", "EDA", "R"],
+    title: "ML & Data",
+    items: ["PyTorch", "scikit-learn", "CNN / LSTM", "Physics-informed losses", "Statistics", "SQL", "Pandas", "MLflow"],
   },
 ];
