@@ -111,7 +111,7 @@ export type Project = {
   stack: string[];
   builtWith?: { tech: string; why: string }[]; // optional "how it's built" notes shown in the modal
   // optional measured results; `note` states the dataset and caveats, so a number never appears without them
-  measured?: { items: { value: string; label: string }[]; note: string };
+  measured?: { items: { value: string; label: string }[]; note: string; source?: string };
   github?: string;
   live?: string;
   featured?: boolean;
@@ -170,6 +170,7 @@ export const projects: Project[] = [
         { value: "55%", label: "line coverage; core graph and copilot modules 82–92%" },
       ],
       note: "Run offline against the fixture server. The 31-case model eval is in the repo and runs in CI; I'll add its scores here after the next full run.",
+      source: "https://github.com/Divyagoyal002/merchant-ops-copilot/blob/eval/metrics/METRICS.md",
     },
     stack: ["LangGraph", "Razorpay MCP", "LangChain MCP adapters", "Groq (gpt-oss)", "Gradio", "Langfuse", "GitHub Actions", "Render"],
     builtWith: [
@@ -317,6 +318,24 @@ export const projects: Project[] = [
     stack: ["PyTorch", "xarray", "Oceanography", "Spectral analysis"],
     github: "https://github.com/Divyagoyal002/submesoscale",
     accent: "#38bdf8",
+  },
+  {
+    title: "Bayesian Marketing Mix Model",
+    tagline: "Channel ROI and budget recommendations with credible intervals",
+    description:
+      "A Google Meridian pipeline that estimates ROI, marginal ROI, adstock and saturation per marketing channel, then turns the posterior into fixed- and flexible-budget recommendations. Before running on the client's data, it is checked on public simulated geo data where the true ROIs are known.",
+    category: "ML & Data",
+    year: "2026",
+    context: "Client",
+    highlights: [
+      "Input validation before any sampling: missing columns, nulls, duplicates, date gaps, negative spend, unbalanced geo panels",
+      "EDA for media mix problems: spend share, variation, correlation and VIF, outliers, seasonality",
+      "Typed YAML configs where each variant changes one thing from its parent, with every run logged to MLflow",
+      "A registration gate on R-hat, holdout accuracy and prior-to-posterior shift, so a model that didn't converge, or that only repeats its priors, can't be registered",
+      "A CI guard that blocks client data and model artifacts from being committed",
+    ],
+    stack: ["Google Meridian", "Bayesian inference", "Python", "MLflow", "pytest", "GitHub Actions"],
+    accent: "#e11d48",
   },
   {
     title: "Business Ops App with an AI Assistant",
@@ -544,6 +563,6 @@ export const skillGroups = [
   },
   {
     title: "ML & Data",
-    items: ["PyTorch", "scikit-learn", "CNN / LSTM", "Physics-informed losses", "Statistics", "SQL", "Pandas", "MLflow"],
+    items: ["PyTorch", "scikit-learn", "CNN / LSTM", "Physics-informed losses", "Bayesian MMM (Meridian)", "Statistics", "SQL", "Pandas", "MLflow"],
   },
 ];
