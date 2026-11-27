@@ -14,25 +14,25 @@ const earlier = projects.filter((p) => p.earlier);
 function CardBody({ p, big }: { p: Project; big: boolean }) {
   return (
     <>
-      <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-muted">
+      <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-wider text-muted">
         <span className="rounded-full border border-line px-2.5 py-1">{p.category}</span>
         <span className="rounded-full border border-line px-2.5 py-1">{contextLabel(p)}</span>
         <span className="ml-auto">{p.year}</span>
       </div>
       <h3 className="mt-5 font-display text-xl font-semibold text-fg md:text-2xl">{p.title}</h3>
-      <p className="mt-1 text-sm" style={{ color: p.accent }}>
+      <p className="accent-text mt-1 text-sm" style={{ "--accent": p.accent } as React.CSSProperties}>
         {p.tagline}
       </p>
       <p className={`mt-3 text-[15px] leading-relaxed text-muted ${big ? "" : "line-clamp-3"}`}>{p.description}</p>
       {p.measured && (
-        <p className="mt-3 font-mono text-[11px] text-fg/75">
+        <p className="mt-3 font-mono text-xs text-fg/75">
           measured · {p.measured.items[0].value} {p.measured.items[0].label}
         </p>
       )}
-      {p.status && <p className="mt-3 font-mono text-[11px] text-amber-200/80">status · {p.status}</p>}
+      {p.status && <p className="mt-3 font-mono text-xs text-warn">status · {p.status}</p>}
       <div className="mt-auto flex flex-wrap gap-1.5 pt-5">
         {p.stack.slice(0, big ? 6 : 4).map((s) => (
-          <span key={s} className="rounded-full bg-white/[0.05] px-2.5 py-1 font-mono text-[11px] text-fg/70">
+          <span key={s} className="rounded-full bg-fg/[0.05] px-2.5 py-1 font-mono text-xs text-fg/70">
             {s}
           </span>
         ))}
@@ -43,7 +43,7 @@ function CardBody({ p, big }: { p: Project; big: boolean }) {
 }
 
 const cardClass = (big: boolean) =>
-  `flex flex-col rounded-[24px] border border-line bg-elev/40 p-6 text-left transition-colors hover:border-white/25 ${big ? "md:col-span-2" : ""}`;
+  `flex flex-col rounded-[24px] border border-line bg-elev/40 p-6 text-left transition-colors hover:border-fg/25 ${big ? "md:col-span-2" : ""}`;
 
 function Card({ p, onOpen, big }: { p: Project; onOpen: () => void; big: boolean }) {
   return (
@@ -85,24 +85,24 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
         onClick={(e) => e.stopPropagation()}
         className="relative max-h-[90svh] w-full max-w-2xl overflow-y-auto rounded-t-[24px] border border-line bg-elev p-7 md:rounded-[24px] md:p-9"
       >
-        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-line text-fg transition hover:border-white/30">
+        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-line text-fg transition hover:border-fg/30">
           ✕
         </button>
         <p className="font-mono text-xs uppercase tracking-wider text-muted">
           {p.category} · {contextLabel(p)} · {p.year}
         </p>
         <h3 className="mt-3 pr-10 font-display text-3xl font-semibold text-fg">{p.title}</h3>
-        <p className="mt-1" style={{ color: p.accent }}>
+        <p className="accent-text mt-1" style={{ "--accent": p.accent } as React.CSSProperties}>
           {p.tagline}
         </p>
         <p className="mt-5 leading-relaxed text-muted">{p.description}</p>
-        {p.status && <p className="mt-4 rounded-xl border border-amber-200/20 px-4 py-3 text-sm text-amber-100/85">Status: {p.status}</p>}
+        {p.status && <p className="mt-4 rounded-xl border border-warn/30 px-4 py-3 text-sm text-warn">Status: {p.status}</p>}
 
         <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">Highlights</h4>
         <ul className="mt-3 space-y-2.5">
           {p.highlights.map((h) => (
             <li key={h} className="flex gap-3 text-fg/85">
-              <span style={{ color: p.accent }}>▹</span>
+              <span className="accent-text" style={{ "--accent": p.accent } as React.CSSProperties}>▹</span>
               {h}
             </li>
           ))}
@@ -121,7 +121,7 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
             <dl className="mt-3 space-y-4">
               {p.builtWith.map((b) => (
                 <div key={b.tech}>
-                  <dt className="font-medium" style={{ color: p.accent }}>
+                  <dt className="accent-text font-medium" style={{ "--accent": p.accent } as React.CSSProperties}>
                     {b.tech}
                   </dt>
                   <dd className="mt-1 text-[15px] leading-relaxed text-muted">{b.why}</dd>
@@ -151,8 +151,6 @@ export default function Projects() {
   return (
     <section id="projects" className="relative mx-auto max-w-6xl px-5 py-24 md:py-32">
       <SectionHeading
-        index="03"
-        kicker="Projects"
         title="Selected work"
         sub="The four projects with case studies are the ones I'd most like to talk about. Each states what was measured, on what data, and what didn't work."
       />
@@ -165,7 +163,7 @@ export default function Projects() {
             className={`rounded-full px-4 py-2 text-sm transition-colors ${filter === f ? "bg-fg text-bg" : "text-muted hover:text-fg"}`}
           >
             {f}
-            <span className="ml-1.5 font-mono text-[10px] opacity-60">{f === "All" ? main.length : main.filter((p) => p.category === f).length}</span>
+            <span className="ml-1.5 font-mono text-xs opacity-60">{f === "All" ? main.length : main.filter((p) => p.category === f).length}</span>
           </button>
         ))}
       </div>
@@ -191,7 +189,7 @@ export default function Projects() {
                 {p.title} ↗
               </a>
               <span className="text-sm text-muted">{p.tagline}</span>
-              <span className="font-mono text-[11px] text-faint md:ml-auto">{p.stack.slice(0, 3).join(" · ")}</span>
+              <span className="font-mono text-xs text-faint md:ml-auto">{p.stack.slice(0, 3).join(" · ")}</span>
             </li>
           ))}
         </ul>

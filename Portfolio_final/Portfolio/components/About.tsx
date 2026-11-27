@@ -6,10 +6,10 @@ import Reveal from "./Reveal";
 export default function About() {
   return (
     <section id="about" className="relative mx-auto max-w-6xl px-5 py-24 md:py-32">
-      <SectionHeading index="01" kicker="About" title="About me" />
+      <SectionHeading title="About" />
 
-      <div className="grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
-        <Reveal className="relative mx-auto w-full max-w-xs md:max-w-none">
+      <div className="grid gap-10 md:grid-cols-[220px_1fr] md:gap-14">
+        <Reveal className="relative w-40 md:w-full">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] border border-line">
             <Image src="/profilepic.jpg" alt="Divya Goyal" fill sizes="(max-width: 768px) 80vw, 400px" className="object-cover object-top" />
           </div>

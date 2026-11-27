@@ -6,7 +6,7 @@ export default function Mentorship() {
   const quote = mentorship.testimonials[0];
   return (
     <section id="mentorship" className="relative mx-auto max-w-6xl px-5 py-24 md:py-32">
-      <SectionHeading index="05" kicker="Mentorship" title="Mentoring and teaching" />
+      <SectionHeading title="Mentoring and teaching" />
 
       <div className="grid gap-5 md:grid-cols-3">
         {mentorship.roles.map((r) => (
@@ -24,7 +24,7 @@ export default function Mentorship() {
             {quote.name}, Topmate mentee · {mentorship.rating}.0 from {mentorship.ratings} ratings · {mentorship.bookings} sessions booked
           </figcaption>
         </figure>
-        <a href={profile.topmate} target="_blank" rel="noopener noreferrer" className="justify-self-start rounded-full border border-line px-5 py-2.5 text-sm text-fg transition hover:border-white/30">
+        <a href={profile.topmate} target="_blank" rel="noopener noreferrer" className="justify-self-start rounded-full border border-line px-5 py-2.5 text-sm text-fg transition hover:border-fg/30">
           Topmate profile ↗
         </a>
       </Reveal>

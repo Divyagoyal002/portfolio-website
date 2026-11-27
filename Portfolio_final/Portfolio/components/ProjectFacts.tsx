@@ -48,7 +48,7 @@ export function Links({ p }: { p: Project }) {
         </a>
       )}
       {p.live && (
-        <a href={p.live} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm text-fg transition hover:border-white/30">
+        <a href={p.live} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm text-fg transition hover:border-fg/30">
           Live demo ↗
         </a>
       )}

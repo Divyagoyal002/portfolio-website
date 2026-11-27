@@ -1,17 +1,36 @@
 @import "tailwindcss";
 
+/* Dark is the default; a light palette applies when the visitor's system is set to light. */
 :root {
   --bg: #07070c;
   --bg-elev: #0e0e16;
   --card: rgba(255, 255, 255, 0.035);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
+  --border: rgba(255, 255, 255, 0.09);
   --fg: #ececf3;
-  --muted: #9a9aae;
-  --faint: #5d5d70;
-  --violet: #8b6cff;
+  --muted: #a3a3b5;
+  --faint: #8b8ba0; /* about 6:1 on --bg, passes WCAG AA for small text */
+  --violet: #9b80ff;
   --cyan: #2fd9f0;
-  --pink: #f472b6;
+  --warn: #fde68a;
+  --ok: #6ee7b7;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #fafaf7;
+    --bg-elev: #f0f0ea;
+    --card: rgba(0, 0, 0, 0.03);
+    --border: rgba(0, 0, 0, 0.11);
+    --fg: #16161d;
+    --muted: #4a4a5a;
+    --faint: #66667a; /* about 5.4:1 on --bg */
+    --violet: #5b3fd6;
+    --cyan: #0e7490;
+    --warn: #92400e;
+    --ok: #047857;
+    --shadow: rgba(0, 0, 0, 0.08);
+  }
 }
 
 @theme inline {
@@ -23,29 +42,19 @@
   --color-line: var(--border);
   --color-violet: var(--violet);
   --color-cyan: var(--cyan);
-  --color-pink: var(--pink);
+  --color-warn: var(--warn);
+  --color-ok: var(--ok);
+  /* Three typefaces: Cormorant for the name and quotes, Inter for text and headings, JetBrains Mono for labels */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-grotesk), var(--font-inter), sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
-  --font-serif: var(--font-serif), Georgia, serif;
+  --font-serif: var(--font-classic), Garamond, Georgia, serif;
   --font-classic: var(--font-classic), Garamond, Georgia, serif;
 }
 
 html {
   background: var(--bg);
-  color-scheme: dark;
-}
-
-/* Lenis handles smooth scrolling; keep native behaviour sane when it is off */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
+  color-scheme: dark light;
 }
 
 body {
@@ -58,43 +67,12 @@ body {
 }
 
 ::selection {
-  background: rgba(139, 108, 255, 0.45);
-  color: #fff;
+  background: color-mix(in srgb, var(--violet) 40%, transparent);
 }
 
-/* Film grain overlay for depth */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 60;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-}
-
-.text-gradient {
-  background: linear-gradient(100deg, #fff 0%, #cbbfff 35%, var(--cyan) 70%, var(--pink) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 8s linear infinite;
-}
-
-@keyframes shimmer {
-  to {
-    background-position: 200% center;
-  }
-}
-
-/* Accent words in headings switch to an italic serif */
-h2 .text-gradient {
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  padding-right: 0.08em;
+/* Project accent colours are picked for dark backgrounds; mixing toward the text colour keeps them readable in both themes. */
+.accent-text {
+  color: color-mix(in oklab, var(--accent) 72%, var(--fg));
 }
 
 .glass {
@@ -102,54 +80,6 @@ h2 .text-gradient {
   border: 1px solid var(--border);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-}
-
-/* Card with a cursor-following spotlight; --mx/--my are set from JS */
-.spotlight {
-  position: relative;
-  isolation: isolate;
-}
-.spotlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  background: radial-gradient(
-    420px circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--accent, var(--violet)) 22%, transparent),
-    transparent 60%
-  );
-}
-.spotlight:hover::before {
-  opacity: 1;
-}
-
-.marquee {
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-}
-.marquee-track {
-  animation: marquee 40s linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.dash-flow {
-  stroke-dasharray: 6 8;
-  animation: dash 1.2s linear infinite;
-}
-@keyframes dash {
-  to {
-    stroke-dashoffset: -28;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
