@@ -169,7 +169,7 @@ export default function Projects() {
       </div>
 
       <motion.div layout className="grid gap-5 md:grid-cols-3" style={{ gridAutoFlow: "dense" }}>
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="popLayout" initial={false}>
           {visible.map((p) => (
             <Card key={p.title} p={p} big={!!p.featured && filter === "All"} onOpen={() => setOpen(p)} />
           ))}

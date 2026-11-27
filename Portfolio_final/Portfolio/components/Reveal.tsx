@@ -1,18 +1,13 @@
-import { motion, type HTMLMotionProps } from "framer-motion";
+// A fade-in as a block scrolls into view, done in CSS (see .reveal in globals.css).
+// The content is visible in the server HTML: browsers without scroll-driven animations,
+// visitors with reduced motion, printing, crawlers and link previews all see it as is.
+type Props = React.HTMLAttributes<HTMLDivElement> & { delay?: number };
 
-type Props = HTMLMotionProps<"div"> & { delay?: number; y?: number };
-
-// A short fade-in the first time a block scrolls into view.
-export default function Reveal({ delay = 0, y = 12, children, ...rest }: Props) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function Reveal({ delay, className = "", children, ...rest }: Props) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
-      {...rest}
-    >
+    <div className={`reveal ${className}`} {...rest}>
       {children}
-    </motion.div>
+    </div>
   );
 }
