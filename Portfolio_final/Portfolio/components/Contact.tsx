@@ -21,10 +21,7 @@ export default function Contact() {
     <section id="contact" className="relative px-5 py-24 md:py-32">
       <div className="mx-auto max-w-3xl text-center">
         <Reveal>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-muted">
-            <span className="text-violet">06</span> — Contact
-          </p>
-          <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight text-fg md:text-5xl">Get in touch</h2>
+          <h2 className="font-display text-4xl font-semibold tracking-tight text-fg md:text-5xl">Get in touch</h2>
           <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
             For roles, projects or questions about my work, email is the best way to reach me. I usually reply within a day.
           </p>
@@ -34,10 +31,10 @@ export default function Contact() {
           <a href={`mailto:${profile.email}`} className="rounded-full bg-fg px-7 py-3.5 font-medium text-bg transition hover:opacity-90">
             {profile.email}
           </a>
-          <button onClick={copy} className="rounded-full border border-line px-5 py-3.5 text-sm text-fg transition hover:border-white/30">
+          <button onClick={copy} className="rounded-full border border-line px-5 py-3.5 text-sm text-fg transition hover:border-fg/30">
             {copied ? "Copied ✓" : "Copy address"}
           </button>
-          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line px-5 py-3.5 text-sm text-fg transition hover:border-white/30">
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line px-5 py-3.5 text-sm text-fg transition hover:border-fg/30">
             LinkedIn ↗
           </a>
         </div>
@@ -74,7 +71,7 @@ export function Footer() {
               <Icon />
             </a>
           ))}
-          <Link href="/#top" aria-label="Back to top" className="ml-2 flex h-9 w-9 items-center justify-center rounded-full border border-line text-sm transition hover:border-white/30 hover:text-fg">
+          <Link href="/#top" aria-label="Back to top" className="ml-2 flex h-9 w-9 items-center justify-center rounded-full border border-line text-sm transition hover:border-fg/30 hover:text-fg">
             ↑
           </Link>
         </div>

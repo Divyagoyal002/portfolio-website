@@ -39,7 +39,7 @@ export default function Nav() {
     <header className="fixed inset-x-0 top-0 z-50">
       <nav
         className={`mx-auto mt-3 flex max-w-5xl items-center justify-end rounded-full md:justify-between px-5 py-2.5 transition-all duration-500 ${
-          scrolled ? "glass !bg-bg/75 shadow-[0_8px_40px_rgba(0,0,0,0.45)]" : "border border-transparent"
+          scrolled ? "glass !bg-bg/75 shadow-[0_8px_40px_var(--shadow)]" : "border border-transparent"
         }`}
         style={{ width: "calc(100% - 24px)" }}
       >
@@ -51,7 +51,7 @@ export default function Nav() {
                 className={`relative rounded-full px-4 py-1.5 text-sm transition-colors ${active === l.id ? "text-fg" : "text-muted hover:text-fg"}`}
               >
                 {active === l.id && (
-                  <motion.span layoutId="nav-pill" className="absolute inset-0 -z-10 rounded-full bg-white/[0.08]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />
+                  <motion.span layoutId="nav-pill" className="absolute inset-0 -z-10 rounded-full bg-fg/[0.08]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />
                 )}
                 {l.label}
               </a>
@@ -84,7 +84,7 @@ export default function Nav() {
           >
             {links.map((l) => (
               <li key={l.id}>
-                <a href={`#${l.id}`} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 font-display text-lg text-fg hover:bg-white/5">
+                <a href={`#${l.id}`} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 font-display text-lg text-fg hover:bg-fg/5">
                   {l.label}
                 </a>
               </li>

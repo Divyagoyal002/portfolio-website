@@ -15,6 +15,9 @@ function H2({ children }: { children: React.ReactNode }) {
 export default function CaseStudyPage({ slug }: Props) {
   const p = projects.find((x) => x.slug === slug) as Project;
   const c = caseStudyBySlug(slug) as CaseStudy;
+  const idx = caseStudies.findIndex((x) => x.slug === slug);
+  const nextSlug = caseStudies[(idx + 1) % caseStudies.length].slug;
+  const next = projects.find((x) => x.slug === nextSlug) as Project;
 
   return (
     <>
@@ -31,7 +34,7 @@ export default function CaseStudyPage({ slug }: Props) {
           {p.category} · {contextLabel(p)} · {p.year}
         </p>
         <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-fg md:text-5xl">{p.title}</h1>
-        <p className="mt-3 text-lg" style={{ color: p.accent }}>
+        <p className="accent-text mt-3 text-lg" style={{ "--accent": p.accent } as React.CSSProperties}>
           {p.tagline}
         </p>
         <p className="mt-6 text-muted">{c.myRole}</p>
@@ -94,7 +97,13 @@ export default function CaseStudyPage({ slug }: Props) {
           <Links p={p} />
         </div>
 
-        <p className="mt-16 border-t border-line pt-8 text-muted">
+        <Link href={`/work/${next.slug}`} className="mt-16 block rounded-2xl border border-line p-6 transition hover:border-fg/30">
+          <span className="font-mono text-xs uppercase tracking-wider text-faint">Next case study</span>
+          <span className="mt-2 block font-display text-xl font-semibold text-fg">{next.title} →</span>
+          <span className="mt-1 block text-sm text-muted">{next.tagline}</span>
+        </Link>
+
+        <p className="mt-10 border-t border-line pt-8 text-muted">
           Questions about this project?{" "}
           <a href={`mailto:${profile.email}`} className="text-fg underline underline-offset-4">
             {profile.email}

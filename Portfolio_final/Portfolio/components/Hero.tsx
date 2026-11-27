@@ -19,10 +19,10 @@ export default function Hero() {
             <a href="#projects" className="inline-flex items-center gap-2 rounded-full bg-fg px-6 py-3 font-medium text-bg transition hover:opacity-90">
               See my work →
             </a>
-            <a href={profile.resume} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full border border-line px-6 py-3 font-medium text-fg transition hover:border-white/30">
+            <a href={profile.resume} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full border border-line px-6 py-3 font-medium text-fg transition hover:border-fg/30">
               Résumé ↗
             </a>
-            <a href={`mailto:${profile.email}`} className="inline-flex rounded-full border border-line px-6 py-3 font-medium text-fg transition hover:border-white/30">
+            <a href={`mailto:${profile.email}`} className="inline-flex rounded-full border border-line px-6 py-3 font-medium text-fg transition hover:border-fg/30">
               Email me
             </a>
             <div className="ml-2 flex items-center gap-4 text-xl text-muted">

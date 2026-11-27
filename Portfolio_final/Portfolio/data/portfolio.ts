@@ -32,6 +32,8 @@ export type Experience = {
   current?: boolean;
   summary: string;
   points: string[];
+  // optional sub-groups (one employer, several products); each can link to a case study
+  groups?: { title: string; link?: { href: string; label: string }; points: string[] }[];
   tags: string[];
 };
 
@@ -54,19 +56,38 @@ export const experience: Experience[] = [
     org: "Onetab Generative AI, Indore",
     period: "Apr 2025 — Sep 2026",
     summary:
-      "TACTIVE, a production agentic AI financial-advisory platform for RIA firms (regulated fintech), plus production voice agents and GenAI tools.",
-    points: [
-      "Designed a multi-agent architecture in LangChain where one planning layer routes tasks to 5 specialized retrieval agents (financials, CRM, documents, portfolio, compliance) and merges their results, cutting duplicated tool code from ~1,500 to ~200 lines and raising automation efficiency by 40%.",
-      "Integrated 22 internal and external REST APIs as callable agent tools and unified their data in a single Valkey (Redis-compatible) vector store, cutting search latency from ~500 ms to under 100 ms (80%) and manual workload by 70%.",
-      "Processed and modeled large financial and portfolio datasets on Databricks (Spark, SQL) to feed retrieval pipelines and analytics across advisory, compliance and CRM sources.",
-      "Built a compliance-monitoring agent that scans advisor communications for SEC/FINRA violations, with real-time alerting, audit-trail logging and deterministic guardrails against hallucinated actions.",
-      "Shipped tool-augmented document-generation agents (Financial Plans, IPS, Meeting Prep, Pitch Decks) on OpenAI and Claude that pull live data from GoHighLevel CRM and Black Diamond portfolio APIs.",
-      "Implemented AgentOps in Langfuse (tracing, prompt versioning, evaluation, cost monitoring) to debug agent pipelines and validate CI/CD releases; automated CRM operations with 10+ modular n8n flows.",
-      "Client project (Catchus.in): owned the end-to-end architecture of a multilingual (English/Hindi/Telugu) voice agent for Stock2Track, a client ERP platform, on the OpenAI Realtime API, streaming audio in real time with function-calling tools (slot lookup, account verification, ticket logging) over CRM and lead-status REST APIs; reached 55% demo-booking conversion on qualified calls.",
-      "Built a post-call extraction agent that turns transcripts into schema-constrained JSON (lead qualification, call outcome, follow-up) feeding CRM update pipelines, removing manual call-note entry.",
-      "Internal project: built Priya, a bilingual (English/Hindi) outbound sales agent for live objection handling, using a deterministic control-tag protocol so state changes (hangup, callback, demo booked) run in backend code, not model text.",
-      "Built OneCode, a dual-mode app generator (prompt-to-Next.js on the Claude API and image-to-HTML/CSS) with parallel requests, exponential backoff, a 5-category intent classifier for edits and a two-stage self-correcting TypeScript build-fix loop, cutting development time by 30%.",
-      "Primary GenAI point of contact for product and backend teams on design and integration; mentored 8 AI/ML interns until they shipped production components.",
+      "Agentic AI platform work, production voice agents and GenAI tools.",
+    points: [],
+    groups: [
+      {
+        title: "TACTIVE: production agentic AI financial-advisory platform for RIA firms (regulated fintech)",
+        link: { href: "/work/tactive-retrieval", label: "Case study: retrieval benchmark" },
+        points: [
+          "Designed a multi-agent architecture in LangChain where one planning layer routes tasks to 5 specialized retrieval agents (financials, CRM, documents, portfolio, compliance) and merges their results, cutting duplicated tool code from ~1,500 to ~200 lines and raising automation efficiency by 40%.",
+          "Integrated 22 internal and external REST APIs as callable agent tools and unified their data in a single Valkey (Redis-compatible) vector store, cutting search latency from ~500 ms to under 100 ms (80%) and manual workload by 70%.",
+          "Processed and modeled large financial and portfolio datasets on Databricks (Spark, SQL) to feed retrieval pipelines and analytics across advisory, compliance and CRM sources.",
+          "Built a compliance-monitoring agent that scans advisor communications for SEC/FINRA violations, with real-time alerting, audit-trail logging and deterministic guardrails against hallucinated actions.",
+          "Shipped tool-augmented document-generation agents (Financial Plans, IPS, Meeting Prep, Pitch Decks) on OpenAI and Claude that pull live data from GoHighLevel CRM and Black Diamond portfolio APIs.",
+          "Implemented AgentOps in Langfuse (tracing, prompt versioning, evaluation, cost monitoring) to debug agent pipelines and validate CI/CD releases; automated CRM operations with 10+ modular n8n flows.",
+          "Primary GenAI point of contact for product and backend teams on design and integration; mentored 8 AI/ML interns until they shipped production components.",
+        ],
+      },
+      {
+        title: "Production voice agents",
+        link: { href: "/work/voice-agents", label: "Case study" },
+        points: [
+          "Client project (Catchus.in): owned the end-to-end architecture of a multilingual (English/Hindi/Telugu) voice agent for Stock2Track, a client ERP platform, on the OpenAI Realtime API, streaming audio in real time with function-calling tools (slot lookup, account verification, ticket logging) over CRM and lead-status REST APIs; reached 55% demo-booking conversion on qualified calls.",
+          "Built a post-call extraction agent that turns transcripts into schema-constrained JSON (lead qualification, call outcome, follow-up) feeding CRM update pipelines, removing manual call-note entry.",
+          "Internal project: built Priya, a bilingual (English/Hindi) outbound sales agent for live objection handling, using a deterministic control-tag protocol so state changes (hangup, callback, demo booked) run in backend code, not model text.",
+        ],
+      },
+      {
+        title: "Python microservices and GenAI tools",
+        points: [
+          "Built Python microservices (FastAPI/Flask) for model serving and AI features.",
+          "Built OneCode, a dual-mode app generator (prompt-to-Next.js on the Claude API and image-to-HTML/CSS) with parallel requests, exponential backoff, a 5-category intent classifier for edits and a two-stage self-correcting TypeScript build-fix loop, cutting development time by 30%.",
+        ],
+      },
     ],
     tags: ["LangChain", "LangGraph", "Valkey", "Databricks", "Langfuse", "n8n", "OpenAI Realtime", "Claude", "FastAPI", "Mentoring"],
   },

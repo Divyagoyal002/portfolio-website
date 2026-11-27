@@ -47,7 +47,7 @@ export default function SampleCall() {
     <figure className="w-full max-w-sm rounded-3xl border border-line bg-elev/60 p-5">
       <figcaption className="mb-3 text-sm text-fg">
         Recorded call: Stock2Track voice agent
-        <span className="mt-1 block font-mono text-[11px] leading-relaxed text-muted">
+        <span className="mt-1 block font-mono text-xs leading-relaxed text-muted">
           Outbound qualification call, built at Onetab · 2 min · caller&apos;s name replaced with a tone
         </span>
       </figcaption>
@@ -63,14 +63,14 @@ export default function SampleCall() {
           <li key={i}>
             <button
               onClick={() => seek(l.t)}
-              className={`flex w-full gap-2 rounded-xl px-2 py-1.5 text-left text-[13px] leading-snug transition ${i === active ? "bg-white/[0.07]" : "hover:bg-white/[0.04]"}`}
+              className={`flex w-full gap-2 rounded-xl px-2 py-1.5 text-left text-[13px] leading-snug transition ${i === active ? "bg-fg/[0.07]" : "hover:bg-fg/[0.04]"}`}
             >
-              <span className="w-9 flex-none font-mono text-[10px] text-faint">{mmss(l.t)}</span>
+              <span className="w-9 flex-none font-mono text-xs text-faint">{mmss(l.t)}</span>
               {l.who === "note" ? (
-                <span className="font-mono text-[11px] text-muted">[{l.text}]</span>
+                <span className="font-mono text-xs text-muted">[{l.text}]</span>
               ) : (
                 <span className={l.who === "agent" ? "text-fg" : "text-muted"}>
-                  <span className="font-mono text-[10px] uppercase text-faint">{l.who === "agent" ? "Priya " : "Caller "}</span>
+                  <span className="font-mono text-xs uppercase text-faint">{l.who === "agent" ? "Priya " : "Caller "}</span>
                   {l.text}
                 </span>
               )}
@@ -78,7 +78,7 @@ export default function SampleCall() {
           </li>
         ))}
       </ol>
-      <p className="mt-3 text-[11px] text-faint">Click a line to jump to it. The transcript is lightly condensed.</p>
+      <p className="mt-3 text-xs text-faint">Click a line to jump to it. The transcript is lightly condensed.</p>
     </figure>
   );
 }
