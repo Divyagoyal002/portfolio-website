@@ -14,7 +14,7 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "voice-agents",
-    myRole: "I owned the real-time voice stack at Onetab: the audio loop, tool calls, post-call extraction and the evals.",
+    myRole: "At Onetab I owned the voice agents end to end, including Stock2Track (a client project via Catchus.in, 55% demo-booking conversion on qualified calls) and Priya, our internal English/Hindi sales agent: the audio loop, tool calls, post-call extraction and the evals.",
     problem:
       "Businesses wanted outbound and inbound phone agents that could qualify leads, book appointments and answer support questions in English, Hindi and Telugu. The call has to feel natural on an ordinary phone line, and whatever the caller says has to reach the CRM as clean, structured data.",
     constraints: [
@@ -34,7 +34,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         title: "Post-call extraction",
-        body: "After hang-up, a gpt-4.1 extractor turns the transcript into a fixed set of fields (business type, ERP in use, demo date and time, callback time, call outcome). Every call logs its cost and per-turn latency.",
+        body: "After hang-up, a gpt-4.1 extraction agent turns the transcript into schema-constrained JSON (business type, ERP in use, demo date and time, callback time, call outcome) that feeds the CRM update pipeline. Every call logs its cost and per-turn latency.",
       },
       {
         title: "Evaluating the extractor",
@@ -48,7 +48,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         title: "Valid JSON, inconsistent values",
-        body: "JSON validity was already 100%, but callback times came back in 5 different shapes and demo times in 3. One trap also produced a contradictory record: using_erp = no with erp_name = Busy, because the caller had used Busy in the past. Strict JSON-schema outputs with enums, explicit formats and a cross-field rule brought every time field to one format and contradictions from 6 to 0 across 243 calls. The cost was about 21% more input tokens. I changed the schema and the prompt rules together, so I can't say which one did the work.",
+        body: "JSON validity was already 100%, but time fields the schema left free-form came back in several shapes (5 for callback time, 3 for demo time). One trap also produced a contradictory record: using_erp = no with erp_name = Busy, because the caller had used Busy in the past. Tightening the schema with strict mode, enums, explicit formats and a cross-field rule brought every time field to one format and contradictions from 6 to 0 across 243 calls. The cost was about 21% more input tokens. I changed the schema and the prompt rules together, so I can't say which one did the work.",
       },
       {
         title: "A control-tag parser that's too strict",
@@ -107,9 +107,9 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "tactive-retrieval",
-    myRole: "Client project. I worked on the AI features, then benchmarked the platform's retrieval layer.",
+    myRole: "At Onetab I designed TACTIVE's multi-agent architecture and unified its 22 API sources in one Valkey vector store. Afterwards I benchmarked that retrieval layer on synthetic data.",
     problem:
-      "Financial advisors ask the platform both kinds of question: conceptual ones (\"who was recently widowed?\") and exact lookups (\"show me account 4417-2290\"). Production used vector search only. I wanted to know whether that holds up for both.",
+      "Financial advisors ask the platform both kinds of question: conceptual ones (\"who was recently widowed?\") and exact lookups (\"show me account 4417-2290\"). Retrieval runs on vector search in Valkey. I wanted to know whether that holds up for both.",
     constraints: [
       "No client data could be used or sent anywhere.",
       "Production runs on ElastiCache Valkey, which has vector search but no BM25 text index.",

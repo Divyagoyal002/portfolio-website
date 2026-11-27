@@ -19,10 +19,10 @@ export default function About() {
         <div>
           <Reveal className="space-y-5 text-lg leading-relaxed text-muted">
             <p>
-              I&apos;m an <span className="text-fg">AI/ML Engineer at {profile.company}</span>, with an M.Tech in AI &amp; Data Science from DAVV. I started in analytics and statistics, moved into deep learning, and now build LLM systems that run in production.
+              I&apos;m an <span className="text-fg">{profile.role} at {profile.company}</span>, with an M.Tech in AI &amp; Data Science from DAVV. I started in analytics and statistics, moved into deep learning, and now build LLM systems that run in production.
             </p>
             <p>
-              Most of my work so far has been <span className="text-fg">real-time voice agents</span>: phone agents that listen, call tools and answer mid-conversation, with latency, cost and pronunciation tuned for Indian callers. I also build <span className="text-fg">document AI</span> and agents that act on business data behind human approval. Where I can, I build an eval set, so a prompt or model change is judged on numbers rather than on a demo.
+              At Onetab I worked on <span className="text-fg">TACTIVE</span>, a production agentic AI platform for RIA firms (multi-agent orchestration, RAG over Valkey, compliance guardrails, Langfuse AgentOps), and on <span className="text-fg">multilingual voice agents</span> on the OpenAI Realtime API. I was the primary GenAI point of contact for product and backend teams and mentored 8 AI/ML interns. Now at Brain Inventory I&apos;m building a document-intelligence system that checks documents for integrity and authenticity.
             </p>
             <p>
               Outside work I build research side projects: physics-informed super-resolution of ocean currents, wearable gait sensing for dogs, and cognitive-screening games for older adults.

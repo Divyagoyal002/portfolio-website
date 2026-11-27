@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Divya Goyal · AI/ML Engineer</title>
+        <title>Divya Goyal · AI Engineer</title>
       </Head>
       <Nav />
       <main className="relative z-10">

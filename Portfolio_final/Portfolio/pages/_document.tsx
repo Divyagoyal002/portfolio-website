@@ -1,8 +1,8 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-const title = "Divya Goyal · AI/ML Engineer";
+const title = "Divya Goyal · AI Engineer";
 const description =
-  "Divya Goyal, AI/ML Engineer at Brain Inventory. Voice agents, tool-using agents, document AI, and the evals behind them.";
+  "Divya Goyal, AI Engineer at Brain Inventory. Document AI, voice agents, tool-using agents, and the evals behind them.";
 
 export default function Document() {
   return (

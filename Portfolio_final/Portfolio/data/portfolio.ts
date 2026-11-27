@@ -2,28 +2,27 @@
 
 export const profile = {
   name: "Divya Goyal",
-  role: "AI/ML Engineer",
+  role: "AI Engineer",
   company: "Brain Inventory",
   location: "Indore, India",
   email: "divyagoyal6224@gmail.com",
-  resume:
-    "https://drive.google.com/file/d/1uEu5Os0umwNjw9OmSJ1wbCaZdRRVv7mW/view?usp=sharing",
+  resume: "/resume.pdf",
   topmate: "https://topmate.io/divya_goyal10",
   linktree: "https://linktr.ee/goyaldivya",
   github: "https://github.com/Divyagoyal002",
   linkedin: "https://linkedin.com/in/divyagoyalds",
   twitter: "https://x.com/divyagoyalbg",
   // Set to a public path (e.g. "/calls/sample.mp3") once a real test-call recording is added to /public.
-  callRecording: null as string | null,
+  callRecording: "/calls/stock2track-call.mp3" as string | null,
   intro:
-    "I build LLM systems that run in production and I measure them. Most of my work is phone agents that hold conversations in English, Hindi and Telugu, agents that act on real business data behind approval gates, and the eval sets that tell me whether a change actually helped.",
+    "AI engineer with 1.5+ years building production agentic AI: multi-agent systems in LangChain and LangGraph, RAG over Valkey and FAISS, Python services on FastAPI, and multilingual voice agents on the OpenAI Realtime API. Now building document intelligence at Brain Inventory.",
 };
 
 export const stats = [
-  { value: 7, suffix: "+", label: "voice agents built" },
-  { value: 4, suffix: "", label: "production systems I put under reproducible evals" },
-  { value: 3, suffix: "", label: "languages spoken by my agents" },
-  { value: 9.1, suffix: "", label: "CGPA, M.Tech AI & DS", decimals: 1 },
+  { value: 1.5, suffix: "+", label: "years building production agentic AI", decimals: 1 },
+  { value: 8, suffix: "", label: "AI/ML interns mentored to production" },
+  { value: 3, suffix: "", label: "languages spoken by my voice agents" },
+  { value: 8.6, suffix: "", label: "CGPA, M.Tech (Integrated) AI & DS", decimals: 1 },
 ];
 
 export type Experience = {
@@ -38,67 +37,69 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    role: "AI/ML Engineer",
+    role: "AI Engineer",
     org: "Brain Inventory",
     period: "Oct 2026 — Present",
     current: true,
-    summary: "Building agentic AI, RAG and voice agent systems.",
+    summary:
+      "Building a document-intelligence system that checks scanned and digital documents for integrity and authenticity, combining computer-vision models with LLM-based extraction.",
     points: [
-      "Built a PDF-tampering detection feasibility POC: eleven forensic checks behind a FastAPI endpoint, with each finding boxed on the page. On a controlled set it flagged 14 of 19 tampered files and 0 of 12 clean ones, and the report recommends it as a triage tool, not a verifier.",
+      "Designing the evaluation datasets and validation workflows that measure detection accuracy and drive down false positives.",
+      "Built the PDF-tampering detection feasibility POC: eleven forensic checks behind a FastAPI endpoint, with each finding boxed on the page. On a controlled set it flagged 14 of 19 tampered files and 0 of 12 clean ones, and the report recommends it as a triage tool, not a verifier.",
     ],
-    tags: ["Agentic AI", "RAG", "Voice agents", "Document forensics", "FastAPI"],
+    tags: ["Document AI", "Computer vision", "LLM extraction", "Evals", "FastAPI"],
   },
   {
     role: "AI/ML Engineer",
-    org: "Onetab Generative Pvt. Ltd.",
+    org: "Onetab Generative AI, Indore",
     period: "Apr 2025 — Sep 2026",
     summary:
-      "Owned the real-time voice AI stack and built the agentic back-ends behind Onetab's products.",
+      "TACTIVE, a production agentic AI financial-advisory platform for RIA firms (regulated fintech), plus production voice agents and GenAI tools.",
     points: [
-      "Designed and shipped real-time phone agents for ERP sales, hospital appointments, logistics support, freight lead qualification, travel sales and recruitment screening.",
-      "Engineered the audio loop: μ-law telephony streams → OpenAI Realtime → streaming Cartesia TTS, with barge-in, echo cancellation, silence detection and per-turn latency tracking.",
-      "Built per-call cost accounting across precall, transcription and extraction, plus call queues, retry scheduling, human handoff and lead dashboards.",
-      "Extended oneAudit's document-verification agents with a Qwen OCR pipeline, guideline checks, forgery and signature detection.",
-      "Took OneCode, a prompt-to-app code generator, to production with an edit-query router and build-error fix endpoints.",
-      "Mentored the office interns: onboarding them onto the voice and agent stacks, reviewing their code and pairing on their first production features.",
+      "Designed a multi-agent architecture in LangChain where one planning layer routes tasks to 5 specialized retrieval agents (financials, CRM, documents, portfolio, compliance) and merges their results, cutting duplicated tool code from ~1,500 to ~200 lines and raising automation efficiency by 40%.",
+      "Integrated 22 internal and external REST APIs as callable agent tools and unified their data in a single Valkey (Redis-compatible) vector store, cutting search latency from ~500 ms to under 100 ms (80%) and manual workload by 70%.",
+      "Processed and modeled large financial and portfolio datasets on Databricks (Spark, SQL) to feed retrieval pipelines and analytics across advisory, compliance and CRM sources.",
+      "Built a compliance-monitoring agent that scans advisor communications for SEC/FINRA violations, with real-time alerting, audit-trail logging and deterministic guardrails against hallucinated actions.",
+      "Shipped tool-augmented document-generation agents (Financial Plans, IPS, Meeting Prep, Pitch Decks) on OpenAI and Claude that pull live data from GoHighLevel CRM and Black Diamond portfolio APIs.",
+      "Implemented AgentOps in Langfuse (tracing, prompt versioning, evaluation, cost monitoring) to debug agent pipelines and validate CI/CD releases; automated CRM operations with 10+ modular n8n flows.",
+      "Client project (Catchus.in): owned the end-to-end architecture of a multilingual (English/Hindi/Telugu) voice agent for Stock2Track, a client ERP platform, on the OpenAI Realtime API, streaming audio in real time with function-calling tools (slot lookup, account verification, ticket logging) over CRM and lead-status REST APIs; reached 55% demo-booking conversion on qualified calls.",
+      "Built a post-call extraction agent that turns transcripts into schema-constrained JSON (lead qualification, call outcome, follow-up) feeding CRM update pipelines, removing manual call-note entry.",
+      "Internal project: built Priya, a bilingual (English/Hindi) outbound sales agent for live objection handling, using a deterministic control-tag protocol so state changes (hangup, callback, demo booked) run in backend code, not model text.",
+      "Built OneCode, a dual-mode app generator (prompt-to-Next.js on the Claude API and image-to-HTML/CSS) with parallel requests, exponential backoff, a 5-category intent classifier for edits and a two-stage self-correcting TypeScript build-fix loop, cutting development time by 30%.",
+      "Primary GenAI point of contact for product and backend teams on design and integration; mentored 8 AI/ML interns until they shipped production components.",
     ],
-    tags: ["OpenAI Realtime", "FastAPI", "WebSockets", "Cartesia", "Telephony", "VLM / OCR", "MongoDB", "Mentoring"],
+    tags: ["LangChain", "LangGraph", "Valkey", "Databricks", "Langfuse", "n8n", "OpenAI Realtime", "Claude", "FastAPI", "Mentoring"],
   },
   {
     role: "AI/ML Intern",
-    org: "Linkites InfoTech",
-    period: "Feb 2025 — Mar 2025",
-    summary:
-      "Worked across deep learning and generative AI, from vision models to LLM agents.",
+    org: "Linkites, Indore",
+    period: "Feb 2025 — Apr 2025",
+    summary: "Deep learning models and LLM tools, deployed as services.",
     points: [
-      "Built CNN, LSTM and FaceNet models for computer vision and forecasting in PyTorch.",
-      "Developed GenAI tools with LLM APIs, RAG pipelines and CrewAI agents.",
-      "Created the first version of OneCode, a prompt-driven code generator for React + Node.js apps.",
-      "Contributed to oneAudit, an AI assistant for domain-specific audit insights.",
+      "Trained CNN, FaceNet and LSTM models in PyTorch and deployed them as Flask microservices for real-time inference.",
+      "Built a RAG-based document-to-form auto-population agent using LLM APIs.",
     ],
-    tags: ["PyTorch", "CNN", "LSTM", "FaceNet", "RAG", "CrewAI", "React", "Node.js"],
+    tags: ["PyTorch", "CNN", "LSTM", "FaceNet", "Flask", "RAG"],
   },
   {
-    role: "Data Analyst & Marketing Research Intern",
-    org: "Synergy Ventures",
-    period: "Sep 2023 — Nov 2023",
-    summary: "Turned market data into pricing and marketing decisions.",
+    role: "Data Analyst and Marketing Research Intern",
+    org: "Synergy Ventures, Indore",
+    period: "Sep 2023 — Oct 2023",
+    summary: "Turned consumer data into pricing decisions.",
     points: [
-      "Lifted conversion rates by 15% and revenue by 10% through data-driven marketing and pricing recommendations.",
-      "Ran market research in Python, NumPy and Pandas and worked with sales and marketing to put the findings into practice.",
+      "Analyzed consumer data with Python and Pandas; pricing recommendations drove a 15% conversion lift and 10% revenue growth.",
     ],
-    tags: ["Python", "Pandas", "Market Research", "Pricing Strategy"],
+    tags: ["Python", "Pandas", "Pricing"],
   },
   {
-    role: "M.Tech (Dual Degree), AI & Data Science",
-    org: "School of Data Science and Forecasting, DAVV",
-    period: "2021 — 2026",
-    summary: "Graduated with a 9.1 CGPA. Also served as placement coordinator and symposium coordinator.",
+    role: "M.Tech (Integrated), AI and Data Science",
+    org: "School of Data Science and Forecasting, DAVV, Indore",
+    period: "2021 — May 2026",
+    summary: "CGPA 8.6 · GATE (DA) 2025 qualified.",
     points: [
-      "Symposium coordinator, iBCD 2024: content, data collection, team coordination and logistics.",
-      "Organised Techhunterssss, a 36-hour pan-India hackathon, covering logistics, marketing, speakers and sponsor outreach.",
+      "Certifications: Introduction to Agent Skills (Claude AI), Anthropic, 2026; Complete Generative AI Course with LangChain and Hugging Face, KRISHAI Technologies, 2025.",
     ],
-    tags: ["Deep Learning", "Statistics", "Forecasting", "Leadership"],
+    tags: ["Machine Learning", "Statistics", "Forecasting"],
   },
 ];
 
@@ -144,7 +145,9 @@ export const projects: Project[] = [
       "Tool calls in the middle of a call: doctor lookup, shipment status, ticket raising, CRM checks",
       "Per-call cost tracking and per-turn latency logging in production",
       "English, Hindi and Telugu, tuned for Indian name pronunciation",
-      "Post-call extraction to the CRM, evaluated on fixed multilingual and adversarial transcript sets",
+      "Stock2Track (client project via Catchus.in): 55% demo-booking conversion on qualified calls",
+      "Priya, an English/Hindi outbound sales agent, uses a deterministic control-tag protocol so hangups, callbacks and bookings run in backend code, not model text",
+      "Post-call extraction agent turns transcripts into schema-constrained JSON for CRM updates, evaluated on fixed multilingual and adversarial transcript sets",
     ],
     measured: {
       items: [
@@ -219,21 +222,24 @@ export const projects: Project[] = [
     accent: "#2dd4bf",
   },
   {
-    title: "Tactive AI Copilot",
-    tagline: "Generative AI for financial advisors",
+    title: "TACTIVE",
+    tagline: "Production agentic AI financial-advisory platform for RIA firms",
     description:
-      "AI features for a financial-advisory SaaS: generated financial plans with charted PDFs, market commentary with cited disclosures, objection handling, conversation scripts, follow-ups and prospect pitch decks.",
+      "A regulated-fintech platform where one planning layer routes advisor requests to 5 specialized retrieval agents (financials, CRM, documents, portfolio, compliance) and merges the results. Agents call 22 internal and external REST APIs as tools, generate financial plans, IPS documents, meeting prep and pitch decks from live CRM and portfolio data, and a compliance agent watches advisor communications for SEC/FINRA issues.",
     category: "Agents & GenAI",
     year: "2026",
     featured: true,
-    context: "Client",
+    context: "Work",
+    org: "Onetab",
     slug: "tactive-retrieval",
     highlights: [
-      "Source citation and signal detection across client context",
-      "Compliance-aware disclosures",
-      "Pitch-deck generation from the prospect engine",
-      "Benchmarked the production vector search (Valkey HNSW, 3072-d embeddings) against BM25: vectors handle paraphrased questions, but miss exact account numbers",
-      "Tuning one hybrid weight didn't work (cross-validation folds picked opposite extremes). The recommended design routes identifier lookups to exact search and everything else to vectors",
+      "Multi-agent architecture in LangChain with a planning layer over 5 retrieval agents; duplicated tool code went from ~1,500 to ~200 lines",
+      "22 REST APIs unified in one Valkey vector store; search latency from ~500 ms to under 100 ms",
+      "Financial and portfolio datasets processed on Databricks (Spark, SQL) to feed retrieval and analytics",
+      "Compliance-monitoring agent with real-time alerts, audit-trail logging and deterministic guardrails",
+      "Document-generation agents on OpenAI and Claude using live GoHighLevel CRM and Black Diamond portfolio data",
+      "AgentOps in Langfuse (tracing, prompt versioning, evals, cost) and 10+ n8n flows for CRM operations",
+      "Later benchmarked the retrieval layer: vectors handle paraphrased questions but miss exact account numbers, so identifier lookups should be routed to exact search",
     ],
     measured: {
       items: [
@@ -244,7 +250,7 @@ export const projects: Project[] = [
       ],
       note: "248 synthetic CRM and portfolio records, 72 queries with one gold record each, run through the production search code. The query types are cleanly separated, so the router result is optimistic. HNSW numbers are from 20k synthetic vectors on a single local node. No client data was used.",
     },
-    stack: ["TypeScript", "Next.js", "Prisma", "AWS", "Valkey vector search", "OpenAI embeddings", "Vitest"],
+    stack: ["LangChain", "Valkey vector search", "Databricks", "Langfuse", "n8n", "OpenAI", "Claude", "TypeScript"],
     accent: "#facc15",
   },
   {
@@ -293,17 +299,17 @@ export const projects: Project[] = [
   },
   {
     title: "OneCode",
-    tagline: "Prompt → working React + Node app",
+    tagline: "Dual-mode app generator: prompt to Next.js, image to HTML/CSS",
     description:
-      "A code generation engine that turns a prompt into a multi-file React + Node.js project, then routes follow-up requests to targeted edits or full regeneration, with endpoints that suggest and apply fixes for build errors.",
+      "Turns a prompt into a multi-file Next.js project on the Claude API, or an image into HTML/CSS. Follow-up requests go through an intent classifier that picks a targeted edit or a regeneration, and a two-stage build-fix loop corrects TypeScript errors. It cut development time by 30%.",
     category: "Agents & GenAI",
     year: "2025",
     context: "Work",
     org: "Onetab",
     highlights: [
-      "Update-query router: edit only what changed",
-      "Build-error fix and apply endpoints, plus a post-generation icon-import fixer",
-      "Retry with jitter on model overload errors",
+      "5-category intent classifier for edit requests: change only what's needed",
+      "Two-stage self-correcting TypeScript build-fix loop",
+      "Parallel requests with exponential backoff",
       "Live preview and git suggestions",
       "Later added the first test suite (14 deterministic tests) and measured the fixers against the real package exports",
     ],
@@ -315,7 +321,7 @@ export const projects: Project[] = [
       ],
       note: "Deterministic checks only. The original model versions are retired, so generation quality wasn't re-measured.",
     },
-    stack: ["Python", "LLMs", "Prompt Engineering", "React", "Node.js"],
+    stack: ["Python", "Claude API", "Next.js", "TypeScript", "Prompt engineering"],
     accent: "#f472b6",
   },
   {
@@ -335,6 +341,37 @@ export const projects: Project[] = [
     stack: ["PyTorch", "xarray", "Oceanography", "Spectral analysis"],
     github: "https://github.com/Divyagoyal002/submesoscale",
     accent: "#38bdf8",
+  },
+  {
+    title: "Crewzy",
+    tagline: "AI workforce management platform · IIT Indore E-Summit Hackathon (Mappls-sponsored)",
+    description:
+      "I built the AI layer of a team-built platform: a GPT-4o-mini agent that turns free-text questions into MongoDB queries behind an LLM authorization check, and a task-assignment pipeline that matches workers to tasks with OpenAI embeddings, cosine similarity and Haversine distance.",
+    category: "Agents & GenAI",
+    year: "2026",
+    context: "Personal",
+    highlights: [
+      "Natural-language questions become MongoDB queries, checked by an LLM authorization step before they run",
+      "Task assignment combines skill match (embedding cosine similarity) with distance (Haversine)",
+      "Team project; I owned the AI layer",
+    ],
+    stack: ["GPT-4o-mini", "MongoDB", "OpenAI embeddings", "Python"],
+    accent: "#14b8a6",
+  },
+  {
+    title: "AI-Based Timetable Generation System",
+    tagline: "Smart India Hackathon 2025",
+    description:
+      "A constraint-based scheduling agent for NEP 2020-aligned institutions, with 80% faster scheduling and 85% fewer conflicts than manual timetabling.",
+    category: "Agents & GenAI",
+    year: "2025",
+    context: "Personal",
+    highlights: [
+      "Constraint-based scheduling for NEP 2020 course structures",
+      "80% faster scheduling and 85% fewer conflicts than manual timetabling",
+    ],
+    stack: ["Python", "Constraint-based scheduling"],
+    accent: "#a78bfa",
   },
   {
     title: "Bayesian Marketing Mix Model",
@@ -514,7 +551,7 @@ export const mentorship = {
   roles: [
     {
       title: "Mentoring interns at Onetab",
-      body: "Guided the office interns from day one: architecture walkthroughs, code reviews and pairing until their work shipped to production.",
+      body: "Mentored 8 AI/ML interns from day one: architecture walkthroughs, code reviews and pairing until they shipped production components.",
     },
     {
       title: "1:1 mentorship on Topmate",
@@ -542,43 +579,35 @@ export const mentorship = {
 
 export const skillGroups = [
   {
-    title: "Agents & LLM Apps",
-    items: [
-      "Tool calling",
-      "Structured Outputs (JSON schema)",
-      "LangGraph (state, interrupts, checkpoints)",
-      "MCP servers & clients",
-      "Human-in-the-loop approvals",
-      "Guardrails & prompt-injection tests",
-      "RAG",
-      "Hybrid retrieval (vector, BM25, routing)",
-      "VLM / OCR document pipelines",
-      "Fine-tuning (LoRA / PEFT)",
-      "OpenAI · Claude · Gemini · Groq · Ollama",
-    ],
+    title: "Agentic AI",
+    items: ["Multi-agent orchestration", "Agent architecture design", "Planning and routing layers", "Tool and function calling", "Memory modules", "Agent evaluation and debugging"],
   },
   {
-    title: "Evals & Observability",
-    items: [
-      "Eval set design (synthetic, adversarial)",
-      "Field-level P / R / F1",
-      "Recall@k · MRR · nDCG",
-      "p50 / p95 latency, cost per call",
-      "Error analysis → fix → re-measure",
-      "Langfuse tracing",
-      "Evals & guardrail tests in CI",
-    ],
+    title: "GenAI frameworks",
+    items: ["LangGraph", "LangChain", "CrewAI", "RAG", "Embeddings", "Prompt engineering", "Conversational AI", "NLP"],
   },
   {
-    title: "Voice & Realtime",
-    items: ["OpenAI Realtime", "Cartesia", "VAD / turn detection", "Telephony (Smartflo, Twilio)", "WebSockets", "Audio DSP"],
+    title: "LLMs and voice",
+    items: ["OpenAI (incl. Realtime API)", "Azure OpenAI", "Claude (Anthropic)", "Cartesia", "Tata Tele Smartflo"],
   },
   {
-    title: "Engineering & Infra",
-    items: ["Python", "FastAPI", "TypeScript", "Next.js", "PostgreSQL", "MongoDB", "Valkey / Redis vector search", "Docker", "AWS", "GitHub Actions"],
+    title: "AgentOps, LLMOps and safety",
+    items: ["Langfuse (tracing, prompt versioning, evals, cost)", "Guardrails", "Schema-constrained outputs", "Audit-trail logging", "n8n"],
   },
   {
-    title: "ML & Data",
-    items: ["PyTorch", "scikit-learn", "CNN / LSTM", "Physics-informed losses", "Bayesian MMM (Meridian)", "Statistics", "SQL", "Pandas", "MLflow"],
+    title: "Python microservices",
+    items: ["Python", "FastAPI", "Flask", "REST APIs", "Async and streaming endpoints", "Docker", "CI/CD", "Git"],
+  },
+  {
+    title: "Data, databases and cloud",
+    items: ["PostgreSQL (JSONB)", "SQL", "MongoDB", "Valkey/Redis vector search", "FAISS", "Databricks (Spark, SQL)", "Vercel", "AWS · Azure · GCP (working familiarity)"],
+  },
+  {
+    title: "Machine learning",
+    items: ["PyTorch", "Scikit-learn", "CNNs", "LSTMs", "FaceNet", "Sentence-transformers"],
+  },
+  {
+    title: "Languages",
+    items: ["Python", "TypeScript", "SQL"],
   },
 ];
