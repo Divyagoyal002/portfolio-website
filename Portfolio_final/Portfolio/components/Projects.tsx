@@ -1,72 +1,63 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaGithub } from "react-icons/fa6";
 import { projects, type Category, type Project } from "@/data/portfolio";
 import SectionHeading from "./SectionHeading";
 import VoicePipeline from "./VoicePipeline";
-import ProjectArt from "./ProjectArt";
-import { lenisRef } from "./SmoothScroll";
+import { Links, Measured, Stack, contextLabel } from "./ProjectFacts";
 
 const filters: ("All" | Category)[] = ["All", "Voice AI", "Agents & GenAI", "Research", "ML & Data"];
+const main = projects.filter((p) => !p.earlier);
+const earlier = projects.filter((p) => p.earlier);
 
-function trackSpotlight(e: React.PointerEvent<HTMLElement>) {
-  const r = e.currentTarget.getBoundingClientRect();
-  e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-  e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+function CardBody({ p, big }: { p: Project; big: boolean }) {
+  return (
+    <>
+      <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-muted">
+        <span className="rounded-full border border-line px-2.5 py-1">{p.category}</span>
+        <span className="rounded-full border border-line px-2.5 py-1">{contextLabel(p)}</span>
+        <span className="ml-auto">{p.year}</span>
+      </div>
+      <h3 className="mt-5 font-display text-xl font-semibold text-fg md:text-2xl">{p.title}</h3>
+      <p className="mt-1 text-sm" style={{ color: p.accent }}>
+        {p.tagline}
+      </p>
+      <p className={`mt-3 text-[15px] leading-relaxed text-muted ${big ? "" : "line-clamp-3"}`}>{p.description}</p>
+      {p.measured && (
+        <p className="mt-3 font-mono text-[11px] text-fg/75">
+          measured · {p.measured.items[0].value} {p.measured.items[0].label}
+        </p>
+      )}
+      {p.status && <p className="mt-3 font-mono text-[11px] text-amber-200/80">status · {p.status}</p>}
+      <div className="mt-auto flex flex-wrap gap-1.5 pt-5">
+        {p.stack.slice(0, big ? 6 : 4).map((s) => (
+          <span key={s} className="rounded-full bg-white/[0.05] px-2.5 py-1 font-mono text-[11px] text-fg/70">
+            {s}
+          </span>
+        ))}
+      </div>
+      <p className="mt-5 text-sm text-fg/80">{p.slug ? "Read the case study →" : "Details →"}</p>
+    </>
+  );
 }
+
+const cardClass = (big: boolean) =>
+  `flex flex-col rounded-[24px] border border-line bg-elev/40 p-6 text-left transition-colors hover:border-white/25 ${big ? "md:col-span-2" : ""}`;
 
 function Card({ p, onOpen, big }: { p: Project; onOpen: () => void; big: boolean }) {
   return (
-    <motion.button
-      layout
-      initial={{ opacity: 0, y: 30, scale: 0.97 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6 }}
-      onPointerMove={trackSpotlight}
-      onClick={onOpen}
-      style={{ "--accent": p.accent } as React.CSSProperties}
-      className={`spotlight glass group flex flex-col overflow-hidden rounded-[28px] text-left transition-colors hover:border-white/20 ${big ? "md:col-span-2" : ""}`}
-    >
-      <div className={`relative w-full overflow-hidden border-b border-line ${big ? "h-44 md:h-52" : "h-36"}`} style={{ background: `radial-gradient(120% 100% at 50% 100%, ${p.accent}22, transparent 70%)` }}>
-        <div className="absolute inset-0 p-6 opacity-80 transition duration-700 group-hover:scale-105 group-hover:opacity-100">
-          <ProjectArt category={p.category} accent={p.accent} />
-        </div>
-        <div className="absolute left-4 top-4 flex gap-2 font-mono text-[10px] uppercase tracking-wider">
-          <span className="rounded-full bg-bg/70 px-2.5 py-1 text-fg/80 backdrop-blur">{p.category}</span>
-          <span className="rounded-full bg-bg/70 px-2.5 py-1 text-muted backdrop-blur">{p.context}</span>
-        </div>
-        <span className="absolute right-4 top-4 font-mono text-[11px] text-muted">{p.year}</span>
-      </div>
-
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-xl font-semibold text-fg md:text-2xl">
-          {p.title}
-          <span className="ml-2 inline-block opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" style={{ color: p.accent }}>
-            ↗
-          </span>
-        </h3>
-        <p className="mt-1 text-sm" style={{ color: p.accent }}>
-          {p.tagline}
-        </p>
-        <p className={`mt-3 text-[15px] leading-relaxed text-muted ${big ? "" : "line-clamp-3"}`}>{p.description}</p>
-        {p.measured && (
-          <p className="mt-3 font-mono text-[11px] text-fg/70">
-            <span style={{ color: p.accent }}>measured · </span>
-            {p.measured.items[0].value} {p.measured.items[0].label}
-          </p>
-        )}
-        <div className="mt-auto flex flex-wrap gap-1.5 pt-5">
-          {p.stack.slice(0, big ? 6 : 4).map((s) => (
-            <span key={s} className="rounded-full bg-white/[0.05] px-2.5 py-1 font-mono text-[11px] text-fg/70">
-              {s}
-            </span>
-          ))}
-        </div>
-      </div>
-    </motion.button>
+    <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className={big ? "md:col-span-2" : ""}>
+      {p.slug ? (
+        <Link href={`/work/${p.slug}`} className={`${cardClass(false)} h-full`}>
+          <CardBody p={p} big={big} />
+        </Link>
+      ) : (
+        <button onClick={onOpen} className={`${cardClass(false)} h-full w-full`}>
+          <CardBody p={p} big={big} />
+        </button>
+      )}
+    </motion.div>
   );
 }
 
@@ -74,122 +65,77 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-    lenisRef.current?.stop();
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
-      lenisRef.current?.start();
       document.body.style.overflow = "";
     };
   }, [onClose]);
 
   return (
-    <motion.div
-      className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70 p-0 backdrop-blur-md md:items-center md:p-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-    >
+    <motion.div className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70 md:items-center md:p-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
       <motion.div
         role="dialog"
         aria-modal="true"
         aria-label={p.title}
-        data-lenis-prevent
-        initial={{ y: 60, opacity: 0, scale: 0.97 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        exit={{ y: 40, opacity: 0 }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 20, opacity: 0 }}
+        transition={{ duration: 0.25 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative max-h-[90svh] w-full max-w-2xl overflow-y-auto rounded-t-[28px] border border-line bg-elev md:rounded-[28px]"
+        className="relative max-h-[90svh] w-full max-w-2xl overflow-y-auto rounded-t-[24px] border border-line bg-elev p-7 md:rounded-[24px] md:p-9"
       >
-        <div className="relative h-48 border-b border-line" style={{ background: `radial-gradient(120% 100% at 50% 100%, ${p.accent}33, transparent 70%)` }}>
-          <div className="absolute inset-0 p-8">
-            <ProjectArt category={p.category} accent={p.accent} />
-          </div>
-          <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-bg/70 text-fg backdrop-blur transition hover:rotate-90">
-            ✕
-          </button>
+        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-line text-fg transition hover:border-white/30">
+          ✕
+        </button>
+        <p className="font-mono text-xs uppercase tracking-wider text-muted">
+          {p.category} · {contextLabel(p)} · {p.year}
+        </p>
+        <h3 className="mt-3 pr-10 font-display text-3xl font-semibold text-fg">{p.title}</h3>
+        <p className="mt-1" style={{ color: p.accent }}>
+          {p.tagline}
+        </p>
+        <p className="mt-5 leading-relaxed text-muted">{p.description}</p>
+        {p.status && <p className="mt-4 rounded-xl border border-amber-200/20 px-4 py-3 text-sm text-amber-100/85">Status: {p.status}</p>}
+
+        <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">Highlights</h4>
+        <ul className="mt-3 space-y-2.5">
+          {p.highlights.map((h) => (
+            <li key={h} className="flex gap-3 text-fg/85">
+              <span style={{ color: p.accent }}>▹</span>
+              {h}
+            </li>
+          ))}
+        </ul>
+
+        {p.measured && (
+          <>
+            <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">Measured</h4>
+            <Measured p={p} />
+          </>
+        )}
+
+        {p.builtWith && (
+          <>
+            <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">How it&apos;s built</h4>
+            <dl className="mt-3 space-y-4">
+              {p.builtWith.map((b) => (
+                <div key={b.tech}>
+                  <dt className="font-medium" style={{ color: p.accent }}>
+                    {b.tech}
+                  </dt>
+                  <dd className="mt-1 text-[15px] leading-relaxed text-muted">{b.why}</dd>
+                </div>
+              ))}
+            </dl>
+          </>
+        )}
+
+        <div className="mt-7">
+          <Stack p={p} />
         </div>
-        <div className="p-7 md:p-9">
-          <p className="font-mono text-xs uppercase tracking-wider text-muted">
-            {p.category} · {p.context} · {p.year}
-          </p>
-          <h3 className="mt-2 font-display text-3xl font-semibold text-fg">{p.title}</h3>
-          <p className="mt-1" style={{ color: p.accent }}>
-            {p.tagline}
-          </p>
-          <p className="mt-5 leading-relaxed text-muted">{p.description}</p>
-
-          <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">Highlights</h4>
-          <ul className="mt-3 space-y-2.5">
-            {p.highlights.map((h) => (
-              <li key={h} className="flex gap-3 text-fg/85">
-                <span style={{ color: p.accent }}>▹</span>
-                {h}
-              </li>
-            ))}
-          </ul>
-
-          {p.measured && (
-            <>
-              <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">Measured</h4>
-              <dl className="mt-3 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
-                {p.measured.items.map((m) => (
-                  <div key={m.label} className="bg-elev p-4">
-                    <dt className="font-mono text-lg text-fg">{m.value}</dt>
-                    <dd className="mt-1 text-sm leading-snug text-muted">{m.label}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-3 text-xs leading-relaxed text-faint">{p.measured.note}</p>
-              {p.measured.source && (
-                <a href={p.measured.source} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-mono text-xs underline-offset-4 hover:underline" style={{ color: p.accent }}>
-                  Raw results and commands ↗
-                </a>
-              )}
-            </>
-          )}
-
-          {p.builtWith && (
-            <>
-              <h4 className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-faint">How it&apos;s built</h4>
-              <dl className="mt-3 space-y-4">
-                {p.builtWith.map((b) => (
-                  <div key={b.tech}>
-                    <dt className="font-medium" style={{ color: p.accent }}>
-                      {b.tech}
-                    </dt>
-                    <dd className="mt-1 text-[15px] leading-relaxed text-muted">{b.why}</dd>
-                  </div>
-                ))}
-              </dl>
-            </>
-          )}
-
-          <div className="mt-7 flex flex-wrap gap-2">
-            {p.stack.map((s) => (
-              <span key={s} className="rounded-full border border-line px-3 py-1 font-mono text-xs text-muted">
-                {s}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            {p.github && (
-              <a href={p.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg transition hover:scale-[1.03]">
-                <FaGithub /> Source
-              </a>
-            )}
-            {p.live && (
-              <a href={p.live} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm text-fg transition hover:border-white/30">
-                Live demo ↗
-              </a>
-            )}
-            {!p.github && !p.live && (
-              <p className="font-mono text-xs text-faint">🔒 Proprietary codebase. Happy to walk through it on a call.</p>
-            )}
-          </div>
+        <div className="mt-8">
+          <Links p={p} />
         </div>
       </motion.div>
     </motion.div>
@@ -199,36 +145,27 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
 export default function Projects() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
   const [open, setOpen] = useState<Project | null>(null);
-  const [showAll, setShowAll] = useState(false);
 
-  const filtered = projects.filter((p) => filter === "All" || p.category === filter);
-  const visible = filter === "All" && !showAll ? filtered.slice(0, 8) : filtered;
+  const visible = main.filter((p) => filter === "All" || p.category === filter);
 
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-5 py-28 md:py-36">
+    <section id="projects" className="relative mx-auto max-w-6xl px-5 py-24 md:py-32">
       <SectionHeading
-        index="04"
-        kicker="Selected work"
-        title={
-          <>
-            Things I&apos;ve <span className="text-gradient">shipped.</span>
-          </>
-        }
-        sub="Production systems from work, plus research side projects from nights and weekends. Click any card for the details."
+        index="03"
+        kicker="Projects"
+        title="Selected work"
+        sub="The four projects with case studies are the ones I'd most like to talk about. Each states what was measured, on what data, and what didn't work."
       />
-
-      <VoicePipeline />
 
       <div className="mb-10 flex flex-wrap gap-2">
         {filters.map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`relative rounded-full px-4 py-2 text-sm transition-colors ${filter === f ? "text-bg" : "text-muted hover:text-fg"}`}
+            className={`rounded-full px-4 py-2 text-sm transition-colors ${filter === f ? "bg-fg text-bg" : "text-muted hover:text-fg"}`}
           >
-            {filter === f && <motion.span layoutId="filter-pill" className="absolute inset-0 -z-10 rounded-full bg-fg" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
             {f}
-            <span className="ml-1.5 font-mono text-[10px] opacity-60">{f === "All" ? projects.length : projects.filter((p) => p.category === f).length}</span>
+            <span className="ml-1.5 font-mono text-[10px] opacity-60">{f === "All" ? main.length : main.filter((p) => p.category === f).length}</span>
           </button>
         ))}
       </div>
@@ -241,16 +178,26 @@ export default function Projects() {
         </AnimatePresence>
       </motion.div>
 
-      {filter === "All" && filtered.length > 8 && (
-        <div className="mt-10 flex justify-center">
-          <button onClick={() => setShowAll(!showAll)} className="glass rounded-full px-6 py-3 text-sm text-fg transition hover:border-white/30">
-            {showAll ? "Show fewer" : `Show all ${filtered.length} projects`}
-          </button>
-        </div>
-      )}
+      <div className="mt-20">
+        <VoicePipeline />
+      </div>
 
-      {typeof document !== "undefined" &&
-        createPortal(<AnimatePresence>{open && <Modal p={open} onClose={() => setOpen(null)} />}</AnimatePresence>, document.body)}
+      <div className="mt-16">
+        <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-faint">Earlier work (2024–25)</h3>
+        <ul className="mt-4 divide-y divide-line border-y border-line">
+          {earlier.map((p) => (
+            <li key={p.title} className="flex flex-col gap-1 py-3 md:flex-row md:items-baseline md:gap-6">
+              <a href={p.github} target="_blank" rel="noopener noreferrer" className="font-medium text-fg underline-offset-4 hover:underline md:w-64 md:flex-none">
+                {p.title} ↗
+              </a>
+              <span className="text-sm text-muted">{p.tagline}</span>
+              <span className="font-mono text-[11px] text-faint md:ml-auto">{p.stack.slice(0, 3).join(" · ")}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {typeof document !== "undefined" && createPortal(<AnimatePresence>{open && <Modal p={open} onClose={() => setOpen(null)} />}</AnimatePresence>, document.body)}
     </section>
   );
 }
