@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { profile } from "@/data/portfolio";
 
 const links = [
   { id: "about", label: "About" },
   { id: "work", label: "Experience" },
-  { id: "mentorship", label: "Mentorship" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
+  { id: "mentorship", label: "Mentorship" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -15,8 +15,6 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -39,7 +37,6 @@ export default function Nav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <motion.div style={{ scaleX: progress }} className="h-[2px] origin-left bg-gradient-to-r from-violet via-cyan to-pink" />
       <nav
         className={`mx-auto mt-3 flex max-w-5xl items-center justify-end rounded-full md:justify-between px-5 py-2.5 transition-all duration-500 ${
           scrolled ? "glass !bg-bg/75 shadow-[0_8px_40px_rgba(0,0,0,0.45)]" : "border border-transparent"
@@ -64,9 +61,9 @@ export default function Nav() {
 
         <a
           href={`mailto:${profile.email}`}
-          className="hidden rounded-full bg-fg px-4 py-1.5 text-sm font-medium text-bg transition-transform hover:scale-[1.04] md:inline-block"
+          className="hidden rounded-full bg-fg px-4 py-1.5 text-sm font-medium text-bg transition-transform hover:opacity-90 md:inline-block"
         >
-          Let&apos;s talk
+          Email me
         </a>
 
         <button className="md:hidden p-2 text-fg" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen(!open)}>

@@ -2,8 +2,6 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Inter, Bricolage_Grotesque, Instrument_Serif, Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
-import CursorGlow from "@/components/CursorGlow";
 
 const inter = Inter({ subsets: ["latin"] });
 const grotesk = Bricolage_Grotesque({ subsets: ["latin"] });
@@ -27,8 +25,6 @@ export default function App({ Component, pageProps }: AppProps) {
           --font-classic: ${classic.style.fontFamily};
         }
       `}</style>
-      <SmoothScroll />
-      <CursorGlow />
       <Component {...pageProps} />
     </>
   );

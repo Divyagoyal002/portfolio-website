@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 const title = "Divya Goyal · AI/ML Engineer";
 const description =
-  "Divya Goyal builds real-time voice agents, multi-agent document AI and physics-informed deep learning systems.";
+  "Divya Goyal, AI/ML Engineer at Brain Inventory. Voice agents, tool-using agents, document AI, and the evals behind them.";
 
 export default function Document() {
   return (

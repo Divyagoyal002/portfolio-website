@@ -3,9 +3,9 @@
 export const profile = {
   name: "Divya Goyal",
   role: "AI/ML Engineer",
-  company: "Onetab Generative",
+  company: "Brain Inventory",
   location: "Indore, India",
-  email: "divyagoyalbg@gmail.com",
+  email: "divyagoyal6224@gmail.com",
   resume:
     "https://drive.google.com/file/d/1uEu5Os0umwNjw9OmSJ1wbCaZdRRVv7mW/view?usp=sharing",
   topmate: "https://topmate.io/divya_goyal10",
@@ -13,20 +13,15 @@ export const profile = {
   github: "https://github.com/Divyagoyal002",
   linkedin: "https://linkedin.com/in/divyagoyalds",
   twitter: "https://x.com/divyagoyalbg",
-  instagram: "https://instagram.com/heyits_divyana",
-  rotatingRoles: [
-    "real-time voice agents",
-    "tool-using agents with human approval",
-    "evals for LLM systems",
-    "document AI pipelines",
-  ],
+  // Set to a public path (e.g. "/calls/sample.mp3") once a real test-call recording is added to /public.
+  callRecording: null as string | null,
   intro:
     "I build LLM systems that run in production and I measure them. Most of my work is phone agents that hold conversations in English, Hindi and Telugu, agents that act on real business data behind approval gates, and the eval sets that tell me whether a change actually helped.",
 };
 
 export const stats = [
   { value: 7, suffix: "+", label: "voice agents built" },
-  { value: 4, suffix: "", label: "production systems benchmarked with reproducible evals" },
+  { value: 4, suffix: "", label: "production systems I put under reproducible evals" },
   { value: 3, suffix: "", label: "languages spoken by my agents" },
   { value: 9.1, suffix: "", label: "CGPA, M.Tech AI & DS", decimals: 1 },
 ];
@@ -44,21 +39,30 @@ export type Experience = {
 export const experience: Experience[] = [
   {
     role: "AI/ML Engineer",
-    org: "Onetab Generative Pvt. Ltd.",
-    period: "Apr 2025 — Present",
+    org: "Brain Inventory",
+    period: "Oct 2026 — Present",
     current: true,
+    summary: "Building agentic AI, RAG and voice agent systems.",
+    points: [
+      "Built a PDF-tampering detection feasibility POC: eleven forensic checks behind a FastAPI endpoint, with each finding boxed on the page. On a controlled set it flagged 14 of 19 tampered files and 0 of 12 clean ones, and the report recommends it as a triage tool, not a verifier.",
+    ],
+    tags: ["Agentic AI", "RAG", "Voice agents", "Document forensics", "FastAPI"],
+  },
+  {
+    role: "AI/ML Engineer",
+    org: "Onetab Generative Pvt. Ltd.",
+    period: "Apr 2025 — Sep 2026",
     summary:
-      "I own the real-time voice AI stack and build the agentic back-ends behind Onetab's products.",
+      "Owned the real-time voice AI stack and built the agentic back-ends behind Onetab's products.",
     points: [
       "Designed and shipped real-time phone agents for ERP sales, hospital appointments, logistics support, freight lead qualification, travel sales and recruitment screening.",
       "Engineered the audio loop: μ-law telephony streams → OpenAI Realtime → streaming Cartesia TTS, with barge-in, echo cancellation, silence detection and per-turn latency tracking.",
       "Built per-call cost accounting across precall, transcription and extraction, plus call queues, retry scheduling, human handoff and lead dashboards.",
-      "Built eval harnesses for post-call extraction on synthetic multilingual transcripts. One run traced every Hindi field error to a missing output-language rule; adding one prompt line lifted Hindi field F1 from about 0.6 to 1.0. Another moved extraction to strict JSON-schema outputs and cut callback-time formats from 5 to 1.",
-      "Extended oneAudit's document-verification agents with a Qwen OCR pipeline, guideline checks, forgery and signature detection, and built a PDF-tampering feasibility POC (14 of 19 tampered files flagged, 0 of 12 clean files on a controlled set).",
+      "Extended oneAudit's document-verification agents with a Qwen OCR pipeline, guideline checks, forgery and signature detection.",
       "Took OneCode, a prompt-to-app code generator, to production with an edit-query router and build-error fix endpoints.",
-      "Mentor the interns in our office: onboarding them onto the voice and agent stacks, reviewing their code and pairing on their first production features.",
+      "Mentored the office interns: onboarding them onto the voice and agent stacks, reviewing their code and pairing on their first production features.",
     ],
-    tags: ["OpenAI Realtime", "FastAPI", "WebSockets", "Cartesia", "Telephony", "Structured Outputs", "Evals", "VLM / OCR", "MongoDB", "Mentoring"],
+    tags: ["OpenAI Realtime", "FastAPI", "WebSockets", "Cartesia", "Telephony", "VLM / OCR", "MongoDB", "Mentoring"],
   },
   {
     role: "AI/ML Intern",
@@ -112,6 +116,10 @@ export type Project = {
   builtWith?: { tech: string; why: string }[]; // optional "how it's built" notes shown in the modal
   // optional measured results; `note` states the dataset and caveats, so a number never appears without them
   measured?: { items: { value: string; label: string }[]; note: string; source?: string };
+  org?: string; // employer, shown instead of the generic "Work" label
+  status?: string; // honest one-line state, e.g. "Tested on synthetic data only"
+  slug?: string; // set for projects with a case-study page at /work/<slug>
+  earlier?: boolean; // older, smaller work: listed in one line under "Earlier work"
   github?: string;
   live?: string;
   featured?: boolean;
@@ -128,6 +136,8 @@ export const projects: Project[] = [
     year: "2026",
     featured: true,
     context: "Work",
+    org: "Onetab",
+    slug: "voice-agents",
     highlights: [
       "Greeting audio is generated before the call connects, so callers hear a voice right away",
       "Barge-in, echo cancellation and silence monitoring over 8 kHz μ-law audio",
@@ -157,6 +167,7 @@ export const projects: Project[] = [
     year: "2026",
     featured: true,
     context: "Personal",
+    slug: "merchant-ops-copilot",
     highlights: [
       "The model never gets a write tool: only 10 read-only Razorpay tools are allowlisted, so no prompt can make it refund anything",
       "Refunds are checked and drafted by code (captured payment, refundable balance, per-refund cap) and run only after a human approves, with an idempotency key so a double-click can't refund twice",
@@ -204,7 +215,7 @@ export const projects: Project[] = [
       },
     ],
     github: "https://github.com/Divyagoyal002/merchant-ops-copilot",
-    live: "https://merchant-ops-copilot.onrender.com",
+    live: "https://merchant-ops-copilot.onrender.com", // free plan: first load takes up to a minute
     accent: "#2dd4bf",
   },
   {
@@ -216,6 +227,7 @@ export const projects: Project[] = [
     year: "2026",
     featured: true,
     context: "Client",
+    slug: "tactive-retrieval",
     highlights: [
       "Source citation and signal detection across client context",
       "Compliance-aware disclosures",
@@ -242,8 +254,8 @@ export const projects: Project[] = [
       "A set of specialised agents that classify documents, extract data, check them against lending guidelines and flag forgery, missing signatures and quality problems. The output is an auditor-ready checklist.",
     category: "Agents & GenAI",
     year: "2026",
-    featured: true,
     context: "Work",
+    org: "Onetab",
     highlights: [
       "Qwen-based OCR pipeline for scanned documents",
       "Guideline-table reasoning with semantic matching",
@@ -256,10 +268,13 @@ export const projects: Project[] = [
     title: "PDF Tampering Detection",
     tagline: "Finds signs of editing in a PDF without the original",
     description:
-      "A feasibility POC for the document-audit product. It runs eleven checks (revision history, signatures, font and baseline consistency, overlays, OCR vs the text layer, scan-noise maps) and returns a verdict with each suspicious region boxed on the page. It's served as a FastAPI endpoint.",
+      "A feasibility POC. It runs eleven checks (revision history, signatures, font and baseline consistency, overlays, OCR vs the text layer, scan-noise maps) and returns a verdict with each suspicious region boxed on the page. It's served as a FastAPI endpoint.",
     category: "ML & Data",
+    featured: true,
     year: "2026",
     context: "Work",
+    org: "Brain Inventory",
+    slug: "pdf-tampering",
     highlights: [
       "Every finding carries a page, a region, a reason and the evidence, so a reviewer can check it",
       "Verdicts are worded as indicators, never 'authentic' or 'forged'",
@@ -284,6 +299,7 @@ export const projects: Project[] = [
     category: "Agents & GenAI",
     year: "2025",
     context: "Work",
+    org: "Onetab",
     highlights: [
       "Update-query router: edit only what changed",
       "Build-error fix and apply endpoints, plus a post-generation icon-import fixer",
@@ -306,12 +322,13 @@ export const projects: Project[] = [
     title: "Submesoscale Ocean Dynamics",
     tagline: "Physics-informed CNN super-resolution of ocean currents",
     description:
-      "Reconstructs eddies and fronts smaller than 100 km from coarse satellite altimetry and SST. The loss includes geostrophic, Rossby-number and log-spectrum terms. Results are validated against independent drifting buoys and wavenumber spectra.",
+      "Reconstructs eddies and fronts smaller than 100 km from coarse satellite altimetry and SST. The loss includes geostrophic, Rossby-number and log-spectrum terms. It is built to be validated against independent drifting buoys and wavenumber spectra.",
     category: "Research",
     year: "2026",
     context: "Personal",
+    status: "Pipeline runs end to end on a synthetic ocean; real-data results not yet published",
     highlights: [
-      "OSSE training on high-resolution reanalysis, applied to real Copernicus data",
+      "OSSE training on high-resolution reanalysis, then application to real Copernicus data",
       "Alboran–Balearic region at 1/24° during the SWOT era (2022–2024)",
       "Effective-resolution and 10–50 km band-energy diagnostics",
     ],
@@ -390,6 +407,7 @@ export const projects: Project[] = [
     category: "Research",
     year: "2026",
     context: "Personal",
+    status: "Tested on synthetic gait data; no real dog data collected yet",
     highlights: [
       "Firmware to dashboard in one repo",
       "Classical and deep learning tracks sharing one feature pipeline",
@@ -407,6 +425,7 @@ export const projects: Project[] = [
     category: "Research",
     year: "2026",
     context: "Personal",
+    status: "Software complete; simulated players only, no participant study yet",
     highlights: [
       "Per-person baselines instead of population norms",
       "Calibrated model trained on simulated players",
@@ -424,6 +443,7 @@ export const projects: Project[] = [
     category: "Agents & GenAI",
     year: "2025",
     context: "Personal",
+    earlier: true,
     highlights: ["OCR fallback for scanned PDFs", "Semantic chunking", "Gemini embeddings"],
     stack: ["LangChain", "FAISS", "Gemini", "Python"],
     github: "https://github.com/Divyagoyal002/Fin_Bot",
@@ -437,6 +457,7 @@ export const projects: Project[] = [
     category: "Agents & GenAI",
     year: "2025",
     context: "Personal",
+    earlier: true,
     highlights: ["SQLite and MySQL", "Llama 3 via Groq", "Session memory"],
     stack: ["LangChain", "Llama 3", "Groq", "Streamlit"],
     github: "https://github.com/Divyagoyal002/SQlChat",
@@ -450,6 +471,7 @@ export const projects: Project[] = [
     category: "Agents & GenAI",
     year: "2025",
     context: "Personal",
+    earlier: true,
     highlights: ["Trend scraping", "GPT-4o drafting", "Scheduled auto-posting"],
     stack: ["GPT-4o", "Google Sheets", "Phantombuster", "Python"],
     github: "https://github.com/Divyagoyal002/LinkedIn-Automation",
@@ -463,10 +485,10 @@ export const projects: Project[] = [
     category: "ML & Data",
     year: "2025",
     context: "Personal",
+    earlier: true,
     highlights: ["MTCNN detection", "Hybrid similarity scoring", "Live Streamlit demo"],
     stack: ["PyTorch", "MTCNN", "FaceNet", "Streamlit"],
     github: "https://github.com/Divyagoyal002/FaceRecognition",
-    live: "https://localhost8501-nbr4vayxnegzzuyms6wpeb.streamlit.app/",
     accent: "#f87171",
   },
   {
@@ -477,6 +499,7 @@ export const projects: Project[] = [
     category: "ML & Data",
     year: "2024",
     context: "Personal",
+    earlier: true,
     highlights: ["EasyOCR", "Unit normalisation", "Text cleaning pipeline"],
     stack: ["Python", "EasyOCR"],
     github: "https://github.com/Divyagoyal002/Entity_extraction_from_Image",
@@ -491,7 +514,7 @@ export const mentorship = {
   roles: [
     {
       title: "Mentoring interns at Onetab",
-      body: "I guide the interns in our office from day one: architecture walkthroughs, code reviews and pairing until their work ships to production.",
+      body: "Guided the office interns from day one: architecture walkthroughs, code reviews and pairing until their work shipped to production.",
     },
     {
       title: "1:1 mentorship on Topmate",
@@ -501,13 +524,6 @@ export const mentorship = {
       title: "Teaching since college",
       body: "GDSC PR & Outreach Lead (tech sessions with 250+ attendees), mathematics tutor at KnowMerit, and programming instructor at WizKlub.",
     },
-  ],
-  services: [
-    { name: "Ask me anything", format: "Priority DM", price: "Free" },
-    { name: "1st session", format: "15-min video call", price: "Paid" },
-    { name: "Discovery call", format: "20-min video call", price: "Paid" },
-    { name: "Follow-up session", format: "30-min video call", price: "Paid" },
-    { name: "Major / Minor project kit", format: "Data Science & AI", price: "Paid" },
   ],
   testimonials: [
     {
